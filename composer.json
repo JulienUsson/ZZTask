@@ -1,0 +1,24 @@
+{
+    "name": "JulienUsson/ZZTask",
+    "description": "Projet de deuxième année à l'ISIMA.",
+    "keywords": ["php","phpunit","git","travis"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Julien Usson",
+            "email": "usson.julien@gmail.com"
+        },
+	{
+	    "name"; "Romain Saulas",
+	    "email": "saulas.romain@gmail.com"
+	}
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "4.0.*"
+    },
+    "autoload": {
+        "psr-0": {
+            "ZZTask": "src/"
+        }
+    }
+}
