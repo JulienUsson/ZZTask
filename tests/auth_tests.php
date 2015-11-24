@@ -1,6 +1,6 @@
 <?php
 
-include('../auth_functions.php');
+include(__DIR__.'/../src/functions/auth_functions.php');
 
 class AuthTests extends PHPUnit_Framework_TestCase
 {

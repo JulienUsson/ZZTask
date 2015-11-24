@@ -1,7 +1,5 @@
 <?php
 
-$root="/var/www";
-
 function get_login() {
 	if(isset($_POST['login'])) {
 		$login=trim($_POST['login']);
@@ -21,11 +19,11 @@ function get_password() {
 }
 
 function get_users() {
-	return json_decode(file_get_contents($GLOBALS['root']."/private/users.json"), true);
+	return json_decode(file_get_contents(__dir__."/../private/users.json"), true);
 }
 
 function save_users($users) {
-	file_put_contents($GLOBALS['root']."/private/users.json", json_encode($users));
+	file_put_contents(__DIR__."/../private/users.json", json_encode($users));
 }
 
 function connect($login, $password) {
