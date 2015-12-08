@@ -1,5 +1,9 @@
-<?php session_start(); ?>
-<?php if(isset($_SESSION['login'])) header('Location: /index.php'); ?>
+<?php include('classes/authentification.php');
+      session_start();
+      $auth=new Authentification();?>
+
+<?php if($auth->is_connected()) header('Location: /index.php'); else { ?>
+
 <!DOCTYPE html>
 <html lang="fr">
   <head>
@@ -26,3 +30,5 @@
     <script src="assets/js/bootstrap.min.js"></script>
   </body>
 </html>
+
+<?php } ?>

@@ -1,24 +1,34 @@
 <?php
 
-include(__DIR__.'/../src/functions/auth_functions.php');
+include(__DIR__.'/../src/classes/authentification.php');
 
-class AuthTests extends PHPUnit_Framework_TestCase
+class AuthentificationTests extends PHPUnit_Framework_TestCase
 {
     public function testAddUser()
     {
-      add_user('toto','toto');
-      $users=get_users();
+      $auth=new Authentification();
+      $auth->add_user('toto','toto');
+      $users=$auth->get_users();
       $this->assertArrayHasKey('toto', $users);
-      $this->assertEquals($users['toto'], 'toto');
-      remove_user('toto');
+      $auth->remove_user('toto');
     }
 
     public function testRemoveUser()
     {
-      add_user('toto','toto');
-      remove_user('toto');
-      $users=get_users();
+      $auth=new Authentification();
+      $auth->add_user('toto','toto');
+      $auth->remove_user('toto');
+      $users=$auth->get_users();
       $this->assertArrayNotHasKey('toto', $users);
+    }
+
+    public function testConnection()
+    {
+      $auth=new Authentification();
+      $auth->add_user('toto','toto');
+      $auth->connect('toto', 'toto');
+      $this->assertTrue($auth->is_connected());
+      $auth->remove_user('toto');
     }
 }
 ?>
