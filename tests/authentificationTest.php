@@ -22,12 +22,23 @@ class AuthentificationTests extends PHPUnit_Framework_TestCase
       $this->assertArrayNotHasKey('toto', $users);
     }
 
-    public function testConnection()
+    public function testConnexion()
     {
       $auth=new Authentification();
       $auth->add_user('toto','toto');
       $auth->connect('toto', 'toto');
       $this->assertTrue($auth->is_connected());
+      $auth->deconnect();
+      $auth->remove_user('toto');
+    }
+
+    public function testDeconnexion()
+    {
+      $auth=new Authentification();
+      $auth->add_user('toto','toto');
+      $auth->connect('toto', 'toto');
+      $auth->deconnect();
+      $this->assertFalse($auth->is_connected());
       $auth->remove_user('toto');
     }
 }

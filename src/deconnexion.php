@@ -2,4 +2,4 @@
       session_start();
       $auth=new Authentification();
 			$auth->deconnect();
-			header('Location: /login.php'); ?>
+			header('Location: ./login.php'); ?>

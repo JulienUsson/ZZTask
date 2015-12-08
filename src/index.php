@@ -2,7 +2,7 @@
       session_start();
       $auth=new Authentification();?>
 
-<?php if(!$auth->is_connected()) header('Location: /login.php'); else { ?>
+<?php if(!$auth->is_connected()) header('Location: ./login.php'); else { ?>
 
 <!DOCTYPE html>
 <html lang="fr">
@@ -29,7 +29,7 @@
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="deconnexion.php">Déconnexion</a></li>
+            <li><a href="./deconnexion.php">Déconnexion</a></li>
           </ul>
         </div>
       </div>

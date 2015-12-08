@@ -2,7 +2,7 @@
       session_start();
       $auth=new Authentification();?>
 
-<?php if($auth->is_connected()) header('Location: /index.php'); else { ?>
+<?php if($auth->is_connected()) header('Location: ./index.php'); else { ?>
 
 <!DOCTYPE html>
 <html lang="fr">

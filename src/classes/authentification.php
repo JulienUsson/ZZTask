@@ -29,10 +29,7 @@ class Authentification {
 
 	public function connect($login, $password) {
 		$users=$this->get_users();
-		echo $this->_hash_password($password)."          ";
-		echo $users[$login];
-		if($users[$login]==$this->_hash_password($password)) {
-			session_start();
+		if($this->_password_verify($password, $users[$login])) {
 			$_SESSION['login']=$login;
 			return true;
 		}
@@ -44,14 +41,13 @@ class Authentification {
 	}
 
 	public function deconnect() {
-		session_start();
 		unset($_SESSION['login']);
 	}
 
 	public function add_user($login, $password) {
 		$users=$this->get_users();
 		if(!isset($users[$login])) {
-			$users[$login]=$this->_hash_password($password);
+			$users[$login]=$this->_password_hash($password);
 			$this->_save_users($users);
 			return true;
 		}
@@ -68,7 +64,11 @@ class Authentification {
 		return false;
 	}
 
-	private function _hash_password($password) {
-		return password_hash($password, PASSWORD_BCRYPT, "SaulasUsson");
+	private function _password_hash($password) {
+		return password_hash("SaulasRomain".$password."UssonJulien", PASSWORD_BCRYPT);
+	}
+
+	private function _password_verify($password, $hash) {
+		return password_verify("SaulasRomain".$password."UssonJulien", $hash);
 	}
 }
