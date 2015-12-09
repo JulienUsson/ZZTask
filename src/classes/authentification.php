@@ -1,6 +1,13 @@
 <?php
 
 class Authentification {
+	public function __construct() {
+		if(!isset($_SESSION))
+		{
+			session_start();
+		}
+	}
+	
 	public function get_login() {
 		if(isset($_POST['login'])) {
 			$login=trim($_POST['login']);
@@ -24,7 +31,7 @@ class Authentification {
 	}
 
 	private function _save_users($users) {
-		file_put_contents(__DIR__."/../../data/users.json", json_encode($users, JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES));
+		file_put_contents(__DIR__."/../../data/users.json", json_encode($users));
 	}
 
 	public function connect($login, $password) {
@@ -63,12 +70,23 @@ class Authentification {
 		}
 		return false;
 	}
+	
+	public function change_password($login, $oldPassword, $newPassword) {
+		$users=$this->get_users();
+		if($this->_password_verify($oldPassword, $users[$login])) {
+			$users[$login]=$this->_password_hash($newPassword);
+			$this->_save_users($users);
+			return true;
+		}
+		return false;
+	}
 
 	private function _password_hash($password) {
-		return password_hash("SaulasRomain".$password."UssonJulien", PASSWORD_BCRYPT);
+		return crypt("SaulasRomain".$password."UssonJulien",'$6$rounds=10000$OnOpQps6zF5fMApytNkv6YshxTIWQ5FI$');
 	}
 
 	private function _password_verify($password, $hash) {
-		return password_verify("SaulasRomain".$password."UssonJulien", $hash);
+		$hashed_password=$this->_password_hash($password);
+		return ($hashed_password==$hash);
 	}
 }

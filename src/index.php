@@ -1,5 +1,4 @@
 <?php include('classes/authentification.php');
-      session_start();
       $auth=new Authentification();?>
 
 <?php if(!$auth->is_connected()) header('Location: ./login.php'); else { ?>

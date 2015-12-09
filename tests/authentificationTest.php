@@ -41,5 +41,20 @@ class AuthentificationTests extends PHPUnit_Framework_TestCase
       $this->assertFalse($auth->is_connected());
       $auth->remove_user('toto');
     }
+    
+    public function testChangePassword()
+    {
+      $auth=new Authentification();
+      $auth->add_user('toto','toto');
+      $auth->change_password('toto', 'toto','titi');
+      $auth->connect('toto', 'titi');
+      $this->assertTrue($auth->is_connected());
+      $auth->deconnect();
+      $auth->change_password('toto', 'motDePassFaux','tata');
+      $auth->connect('toto', 'tata');
+      $this->assertFalse($auth->is_connected());
+      $auth->deconnect();
+      $auth->remove_user('toto');
+    }
 }
 ?>
