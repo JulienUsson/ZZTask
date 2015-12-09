@@ -8,18 +8,18 @@ class Authentification {
 		}
 	}
 	
-	public function get_login() {
-		if(isset($_POST['login'])) {
-			$login=trim($_POST['login']);
+	public function format_login($l) {
+		if(isset($l)) {
+			$login=trim($l);
 		} else {
 			$login=null;
 		}
 		return $login;
 	}
 
-	public function get_password() {
-		if(isset($_POST['password'])) {
-			$password=trim($_POST['password']);
+	public function format_password($p) {
+		if(isset($p)) {
+			$password=trim($p);
 		} else {
 			$password=null;
 		}

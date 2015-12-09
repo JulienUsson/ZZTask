@@ -9,9 +9,13 @@
     <link href="assets/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="assets/css/style.css" rel="stylesheet">
     <link href="assets/css/login.css" rel="stylesheet">
+	<script src="assets/js/angular.min.js"></script>
+    <script src="assets/js/angular-route.min.js"></script>
+    <script src="assets/js/ui-bootstrap.min.js"></script>
+    <script src="assets/js/app.js"></script>
   </head>
   <body>
-	<nav ng-show="loggedIn" class="navbar navbar-inverse navbar-fixed-top">
+	<nav ng-show="loggedIn" ng-controller="menuController" class="navbar navbar-inverse navbar-fixed-top">
 	  <div class="container">
 		<div class="navbar-header">
 		  <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -24,7 +28,7 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse">
 		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="./deconnexion.php">Déconnexion</a></li>
+			<li><a href="" ng-click="logout()">Déconnexion</a></li>
 		  </ul>
 		</div>
 	  </div>
@@ -32,9 +36,5 @@
 	
 	<div ng-view></div>
 	
-    <script src="assets/js/angular.min.js"></script>
-    <script src="assets/js/angular-route.min.js"></script>
-    <script src="assets/js/ui-bootstrap.min.js"></script>
-    <script src="assets/js/app.js"></script>
   </body>
 </html>
