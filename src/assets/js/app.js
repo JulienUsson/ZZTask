@@ -1,23 +1,26 @@
 var app = angular.module('ZZTask', ['ngRoute']);
 
-app.config(function($routeProvider, $locationProvider) {
+app.config(function($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl : 'pages/task.html',
+			templateUrl : './pages/task.html',
 			controller  : 'taskController'
         })
         .when('/login', {
-			templateUrl : 'pages/login.html',
+			templateUrl : './pages/login.html',
 			controller  : 'loginController'
-        });
-		$locationProvider.html5Mode(true);
+        })        
+        .otherwise({
+			redirectTo: '/'
+		});
 });
 
 app.run(function($rootScope, $http) {
     $rootScope.loggedIn=false;
-		$http.post("./services/authentification/", {action: "isconnected"}).success(function(data){
-			$rootScope.loggedIn=data;
-		});
+	$http.post("./services/authentification/", {action: "isconnected"}).success(function(data){
+		if(data=="true")
+			$rootScope.loggedIn=true;
+	});
 });
 
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
@@ -34,7 +37,7 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 app.controller('taskController', function($rootScope, $scope, $location, $http) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
-
+		
 	$scope.tasks={}
 	$scope.tasks.todo={};
 	$scope.tasks.inProgress={};

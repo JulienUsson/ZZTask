@@ -30,7 +30,7 @@ switch($params['action']) {
 		break;
 	//--------------- ISCONNECTED ------------------
 	case 'isconnected':
-		echo $auth->is_connected();
+		echo ($auth->is_connected())?"true":"false";
 		break;
 }
 
