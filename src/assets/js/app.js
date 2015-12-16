@@ -17,7 +17,7 @@ app.config(function($routeProvider) {
 
 app.run(function($rootScope, $http) {
     $rootScope.loggedIn=false;
-	$http.post("./services/authentification/", {action: "isconnected"}).success(function(data){
+	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
 		if(data=="true")
 			$rootScope.loggedIn=true;
 	});
@@ -25,7 +25,7 @@ app.run(function($rootScope, $http) {
 
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
 	$scope.logout = function() {
-		$http.post("./services/authentification/", {action: "logout"}).success(function(data){
+		$http.post("./api/authentification/", {action: "logout"}).success(function(data){
 			if(data=="true") {
 				$rootScope.loggedIn=false;
 				$location.url('/login');
@@ -58,7 +58,7 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 	$scope.login = function() {
 		$cookies.put('login', $scope.form.login);
 		var params= {action: "login", login: $scope.form.login, password: $scope.form.password};
-		$http.post("./services/authentification/", params).success(function(data){
+		$http.post("./api/authentification/", params).success(function(data){
 			if(data=="true") {
 				$rootScope.loggedIn=true;
 				$location.url('/');
