@@ -1,13 +1,6 @@
 <?php
 
 class Authentification {
-	public function __construct() {
-		if(!isset($_SESSION))
-		{
-			session_start();
-		}
-	}
-	
 	public function format_login($l) {
 		if(isset($l)) {
 			$login=trim($l);
