@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+//session_start();
 include('../../classes/authentification.php');
 
 $auth=new Authentification();

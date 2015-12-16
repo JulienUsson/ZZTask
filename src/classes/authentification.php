@@ -20,11 +20,11 @@ class Authentification {
 	}
 
 	public function get_users() {
-		return json_decode(file_get_contents(__dir__."/../../data/users.json"), true);
+		return json_decode(file_get_contents(__dir__."/../private/users.json"), true);
 	}
 
 	private function _save_users($users) {
-		file_put_contents(__DIR__."/../../data/users.json", json_encode($users));
+		file_put_contents(__DIR__."/../private/users.json", json_encode($users));
 	}
 
 	public function connect($login, $password) {

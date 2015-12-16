@@ -1,0 +1,11 @@
+{
+	"login": "Login",
+	"password": "Password",
+	"rememberMe": "Remember me",
+	"connection": "Connection",
+	"loginError": "Invalid login and/or password.",
+	"deconnection": "Deconnection",
+	"todo": "Todo",
+	"inProgress": "In progress",
+	"done": "Done"
+}

@@ -3,11 +3,11 @@ var app = angular.module('ZZTask', ['ngRoute', 'ngCookies']);
 app.config(function($routeProvider) {
 	$routeProvider
 		.when('/', {
-			templateUrl : './pages/task.html',
+			templateUrl : './assets/template/task.html',
 			controller  : 'taskController'
         })
         .when('/login', {
-			templateUrl : './pages/login.html',
+			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
         })        
         .otherwise({
@@ -20,6 +20,10 @@ app.run(function($rootScope, $http) {
 	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
 		if(data=="true")
 			$rootScope.loggedIn=true;
+	});
+	$rootScope.langue={};
+	$http.post("./assets/json/langue_en.json").success(function(data){
+		$rootScope.langue=data;
 	});
 });
 

@@ -1,0 +1,16 @@
+<div class="container login" ng-submit="login()">
+  <form class="form-signin">
+	<h2 class="form-signin-heading">ZZTask</h2>
+	<label for="login" class="sr-only">{{langue.login}}</label>
+	<input ng-model="form.login" type="login" id="login" name="login" class="form-control" placeholder="{{langue.login}}" required autofocus>
+	<label for="password" class="sr-only">{{langue.password}}</label>
+	<input ng-model="form.password" type="password" id="password" name="password" class="form-control" placeholder="{{langue.password}}" required>
+	<div class="checkbox">
+	  <label>
+		<input type="checkbox" ng-model="rememberMe" value="remember-me"> {{langue.rememberMe}}
+	  </label>
+	</div>
+	<div ng-show="error.login" class="alert alert-danger" role="alert">{{langue.loginError}}</div>
+	<button class="btn btn-lg btn-primary btn-block" type="submit">{{langue.connection}}</button>
+  </form>
+</div>

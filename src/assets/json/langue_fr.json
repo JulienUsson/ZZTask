@@ -1,0 +1,11 @@
+{
+	"login": "Login",
+	"password": "Mot de passe",
+	"rememberMe": "Se souvenir de moi",
+	"connection": "Connexion",
+	"loginError": "Login et/ou mot de passe invalide.",
+	"deconnection": "Déconnexion",
+	"todo": "A faire",
+	"inProgress": "En cours",
+	"done": "Terminée"
+}
