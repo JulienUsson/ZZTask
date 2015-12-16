@@ -25,6 +25,12 @@ app.run(function($rootScope, $http) {
 	$http.post("./assets/json/langue_en.json").success(function(data){
 		$rootScope.langue=data;
 	});
+	
+	$rootScope.setLangue = function(langue) {
+		$http.post("./assets/json/langue_"+ langue +".json").success(function(data){
+			$rootScope.langue=data;
+		});
+	};
 });
 
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
