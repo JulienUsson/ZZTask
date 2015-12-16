@@ -15,18 +15,22 @@ app.config(function($routeProvider) {
 		});
 });
 
-app.run(function($rootScope, $http) {
+app.run(function($rootScope, $http, $cookies) {
     $rootScope.loggedIn=false;
 	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
 		if(data=="true")
 			$rootScope.loggedIn=true;
 	});
+	
+	$rootScope.selectedLangue=($cookies.get('langue'))?$cookies.get('langue'):'en';
 	$rootScope.langue={};
 	$http.post("./assets/json/langue_en.json").success(function(data){
 		$rootScope.langue=data;
 	});
 	
 	$rootScope.setLangue = function(langue) {
+		$rootScope.selectedLangue=langue;
+		$cookies.put('langue', $rootScope.selectedLangue);
 		$http.post("./assets/json/langue_"+ langue +".json").success(function(data){
 			$rootScope.langue=data;
 		});

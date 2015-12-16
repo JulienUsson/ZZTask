@@ -6,9 +6,11 @@
 	<label for="password" class="sr-only">{{langue.password}}</label>
 	<input ng-model="form.password" type="password" id="password" name="password" class="form-control" placeholder="{{langue.password}}" required>
 	<div class="checkbox">
-	  <label>
-		<input type="checkbox" ng-model="rememberMe" value="remember-me"> {{langue.rememberMe}}
-	  </label>
+		<label>
+			<input type="checkbox" ng-model="rememberMe" value="remember-me"> {{langue.rememberMe}}
+		</label>
+		<a ng-hide="selectedLangue == 'fr'" ng-click="setLangue('fr')" class="flag pull-right" href="">Français</a>
+		<a ng-hide="selectedLangue == 'en'" ng-click="setLangue('en')" class="flag pull-right" href="">English</a>
 	</div>
 	<div ng-show="error.login" class="alert alert-danger" role="alert">{{langue.loginError}}</div>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">{{langue.connection}}</button>
