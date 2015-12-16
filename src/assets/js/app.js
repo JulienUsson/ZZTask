@@ -1,4 +1,4 @@
-var app = angular.module('ZZTask', ['ngRoute']);
+var app = angular.module('ZZTask', ['ngRoute', 'ngCookies']);
 
 app.config(function($routeProvider) {
 	$routeProvider
@@ -44,19 +44,33 @@ app.controller('taskController', function($rootScope, $scope, $location, $http) 
 	$scope.tasks.done={};
 });
 
-app.controller('loginController', function($rootScope, $scope, $location, $http) {
+app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
+	$scope.form={};
+	$scope.error={};
+	
 	if($rootScope.loggedIn)
 		$location.url('/');
-
-	$scope.form={};
-
+		
+	$scope.rememberMe=($cookies.get('rememberMe')=='true');
+	if($scope.rememberMe)
+		$scope.form.login=$cookies.get('login');
+	
 	$scope.login = function() {
+		$cookies.put('login', $scope.form.login);
 		var params= {action: "login", login: $scope.form.login, password: $scope.form.password};
 		$http.post("./services/authentification/", params).success(function(data){
 			if(data=="true") {
 				$rootScope.loggedIn=true;
 				$location.url('/');
 			}
+			else {
+				$scope.form.password="";
+				$scope.error.login=true;
+			}
 		});
 	};
+	
+	$scope.$watch('rememberMe', function() {
+		$cookies.put('rememberMe', $scope.rememberMe);
+	});
 });

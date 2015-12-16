@@ -5,6 +5,12 @@
 	<input ng-model="form.login" type="login" id="login" name="login" class="form-control" placeholder="Login" required autofocus>
 	<label for="password" class="sr-only">Mot de passe</label>
 	<input ng-model="form.password" type="password" id="password" name="password" class="form-control" placeholder="Mot de passe" required>
+	<div class="checkbox">
+	  <label>
+		<input type="checkbox" ng-model="rememberMe" value="remember-me"> Se souvenir de moi
+	  </label>
+	</div>
+	<div ng-show="error.login" class="alert alert-danger" role="alert">Login et/ou mot de passe invalide.</div>
 	<button class="btn btn-lg btn-primary btn-block" type="submit">Connexion</button>
   </form>
 </div>
