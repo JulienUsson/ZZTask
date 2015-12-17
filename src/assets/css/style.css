@@ -46,3 +46,7 @@ body {
 	height: 25px;
 	width: auto;
 }
+
+.nav, .pagination, .carousel, .panel-title a { 
+	cursor: pointer; 
+}

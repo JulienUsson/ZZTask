@@ -1,4 +1,4 @@
-var app = angular.module('ZZTask', ['ngRoute', 'ngCookies']);
+var app = angular.module('ZZTask', ['ngRoute', 'ngCookies', 'ngAnimate', 'ui.bootstrap']);
 
 app.config(function($routeProvider) {
 	$routeProvider
