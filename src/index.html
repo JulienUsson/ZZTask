@@ -29,7 +29,9 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
 		  <ul class="nav navbar-nav navbar-right">
-			<li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
+        <li><a ng-show="selectedLangue == 'fr'" ng-click="setLangue('en')" class="flag pull-right" href="">Français</a></li>
+        <li><a ng-show="selectedLangue == 'en'" ng-click="setLangue('fr')" class="flag pull-right" href="">English</a></li>
+			  <li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
 		  </ul>
 		</div>
 	  </div>
