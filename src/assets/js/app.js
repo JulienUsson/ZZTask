@@ -9,25 +9,25 @@ app.config(function($routeProvider) {
         .when('/login', {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
-        })        
+        })
         .otherwise({
 			redirectTo: '/'
 		});
 });
 
 app.run(function($rootScope, $http, $cookies) {
-    $rootScope.loggedIn=false;
+  $rootScope.loggedIn=true;
 	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
 		if(data=="true")
 			$rootScope.loggedIn=true;
 	});
-	
+
 	$rootScope.selectedLangue=($cookies.get('langue'))?$cookies.get('langue'):'en';
 	$rootScope.langue={};
 	$http.post("./assets/json/langue_en.json").success(function(data){
 		$rootScope.langue=data;
 	});
-	
+
 	$rootScope.setLangue = function(langue) {
 		$rootScope.selectedLangue=langue;
 		$cookies.put('langue', $rootScope.selectedLangue);
@@ -51,7 +51,7 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 app.controller('taskController', function($rootScope, $scope, $location, $http) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
-		
+
 	$scope.tasks={}
 	$scope.tasks.todo={};
 	$scope.tasks.inProgress={};
@@ -61,14 +61,14 @@ app.controller('taskController', function($rootScope, $scope, $location, $http) 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
 	$scope.form={};
 	$scope.error={};
-	
+
 	if($rootScope.loggedIn)
 		$location.url('/');
-		
+
 	$scope.rememberMe=($cookies.get('rememberMe')=='true');
 	if($scope.rememberMe)
 		$scope.form.login=$cookies.get('login');
-	
+
 	$scope.login = function() {
 		$cookies.put('login', $scope.form.login);
 		var params= {action: "login", login: $scope.form.login, password: $scope.form.password};
@@ -83,7 +83,7 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 			}
 		});
 	};
-	
+
 	$scope.$watch('rememberMe', function() {
 		$cookies.put('rememberMe', $scope.rememberMe);
 	});
