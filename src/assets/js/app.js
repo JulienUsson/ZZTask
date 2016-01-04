@@ -24,7 +24,7 @@ app.run(function($rootScope, $http, $cookies) {
 
 	$rootScope.selectedLangue=($cookies.get('langue'))?$cookies.get('langue'):'en';
 	$rootScope.langue={};
-	$http.post("./assets/json/langue_en.json").success(function(data){
+	$http.post("./assets/json/langue_"+ $rootScope.selectedLangue +".json").success(function(data){
 		$rootScope.langue=data;
 	});
 
