@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ZZTask</title>
     <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/css/bootstrap-theme.min.css" rel="stylesheet">
     <link href="./assets/css/style.css" rel="stylesheet">
 	<script src="./assets/lib/angular.min.js"></script>
     <script src="./assets/lib/angular-route.min.js"></script>
@@ -16,7 +15,7 @@
     <script src="./assets/js/app.js"></script>
   </head>
   <body>
-	<nav ng-show="loggedIn" ng-controller="menuController" class="navbar navbar-inverse navbar-fixed-top">
+	<nav ng-show="loggedIn" ng-controller="menuController" class="navbar navbar-default navbar-fixed-top">
 	  <div class="container">
 		<div class="navbar-header">
 		  <button type="button" class="navbar-toggle collapsed" ng-init="isCollapsed = true" ng-click="isCollapsed = !isCollapsed">

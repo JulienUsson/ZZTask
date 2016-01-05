@@ -3,6 +3,10 @@ body {
   background-color: #eee;
 }
 
+.list-group-item {
+	height: 55px;
+}
+
 .form-signin {
   max-width: 330px;
   padding: 15px;
