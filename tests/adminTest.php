@@ -1,6 +1,6 @@
 <?php
 
-include(__DIR__.'/../src/classes/authentification.php');
+include(__DIR__.'/../src/classes/admin.php');
 
 class AdminTests extends PHPUnit_Framework_TestCase
 {

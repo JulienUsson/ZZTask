@@ -1,6 +1,6 @@
 <?php
 
-include('admin.php');
+// include('admin.php');
 
 class Authentification {
 	public function format_login($l) {
