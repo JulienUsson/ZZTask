@@ -1,5 +1,7 @@
 <?php
 
+include('admin.php');
+
 class Authentification {
 	public function format_login($l) {
 		if(isset($l)) {
@@ -28,16 +30,21 @@ class Authentification {
 	}
 
 	public function connect($login, $password) {
+		$admin=new Admin();
 		$users=$this->get_users();
 		if($this->_password_verify($password, $users[$login])) {
-			$_SESSION['login']=$login;
-			return true;
+			$_SESSION['loggedIn']=true;
+			$_SESSION['admin']=$admin->is_admin($login);
 		}
-		return false;
+		else {
+			$_SESSION['loggedIn']=false;
+			$_SESSION['admin']=false;
+		}
+		return array('loggedIn' => $_SESSION['loggedIn'], 'admin' => $_SESSION['admin']);
 	}
 
 	public function is_connected() {
-		return isset($_SESSION['login']);
+		return array('loggedIn' => $_SESSION['loggedIn'], 'admin' => $_SESSION['admin']);
 	}
 
 	public function deconnect() {
@@ -63,7 +70,7 @@ class Authentification {
 		}
 		return false;
 	}
-	
+
 	public function change_password($login, $oldPassword, $newPassword) {
 		$users=$this->get_users();
 		if($this->_password_verify($oldPassword, $users[$login])) {

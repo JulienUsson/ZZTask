@@ -6,20 +6,21 @@ app.config(function($routeProvider) {
 			templateUrl : './assets/template/task.html',
 			controller  : 'taskController'
         })
-        .when('/login', {
+    .when('/login', {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
         })
-        .otherwise({
+    .otherwise({
 			redirectTo: '/'
 		});
 });
 
 app.run(function($rootScope, $http, $cookies) {
   $rootScope.loggedIn=true;
+	$rootScope.admin=false;
 	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
-		if(data=="true")
-			$rootScope.loggedIn=true;
+		$rootScope.loggedIn=data.loggedIn;
+		$rootScope.admin=data.admin;
 	});
 
 	$rootScope.selectedLangue=($cookies.get('langue'))?$cookies.get('langue'):'en';
@@ -40,10 +41,9 @@ app.run(function($rootScope, $http, $cookies) {
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
 	$scope.logout = function() {
 		$http.post("./api/authentification/", {action: "logout"}).success(function(data){
-			if(data=="true") {
 				$rootScope.loggedIn=false;
+				$rootScope.admin=false;
 				$location.url('/login');
-			}
 		});
 	}
 });
@@ -73,10 +73,10 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 		$cookies.put('login', $scope.form.login);
 		var params= {action: "login", login: $scope.form.login, password: $scope.form.password};
 		$http.post("./api/authentification/", params).success(function(data){
-			if(data=="true") {
-				$rootScope.loggedIn=true;
+			$rootScope.loggedIn=data.loggedIn;
+			$rootScope.admin=data.admin;
+			if($rootScope.loggedIn)
 				$location.url('/');
-			}
 			else {
 				$scope.form.password="";
 				$scope.error.login=true;
