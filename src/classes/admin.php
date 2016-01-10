@@ -5,8 +5,8 @@ class Admin {
 		return json_decode(file_get_contents(__dir__."/../private/admins.json"), true);
 	}
 
-	private function _save_admins($users) {
-		file_put_contents(__DIR__."/../private/admins.json", json_encode($users));
+	private function _save_admins($admins) {
+		file_put_contents(__DIR__."/../private/admins.json", json_encode($admins));
 	}
 
 	public function is_admin($login) {
@@ -16,7 +16,7 @@ class Admin {
 
 	public function add_admin($login) {
 		$admins=$this->get_admins();
-		if(!isset($admins[$login])) {
+		if(!$this->is_admin($login)) {
 			$admins[]=$login;
 			$this->_save_admins($admins);
 			return true;
@@ -26,7 +26,7 @@ class Admin {
 
 	public function remove_admin($login) {
 		$admins=$this->get_admins();
-		if(isset($admins[$login])) {
+		if($this->is_admin($login)) {
 			unset($admins[array_search($login, $admins)]);
 			$this->_save_admins($admins);
 			return true;
