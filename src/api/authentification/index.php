@@ -1,7 +1,8 @@
 <?php
 
 session_start();
-include('../../classes/authentification.php');
+require_once('../../classes/admin.php');
+require_once('../../classes/authentification.php');
 
 $auth=new Authentification();
 $params = json_decode(file_get_contents('php://input'),true);

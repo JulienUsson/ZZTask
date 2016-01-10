@@ -1,7 +1,7 @@
 <?php
 
-include(__DIR__.'/../src/classes/admin.php');
-include(__DIR__.'/../src/classes/authentification.php');
+require_once(__DIR__.'/../src/classes/admin.php');
+require_once(__DIR__.'/../src/classes/authentification.php');
 
 class AuthentificationTests extends PHPUnit_Framework_TestCase
 {

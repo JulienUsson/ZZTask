@@ -1,7 +1,5 @@
 <?php
 
-// include('admin.php');
-
 class Authentification {
 	public function format_login($l) {
 		if(isset($l)) {
