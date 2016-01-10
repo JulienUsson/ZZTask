@@ -44,11 +44,12 @@ class Authentification {
 	}
 
 	public function is_connected() {
-		return array('loggedIn' => $_SESSION['loggedIn'], 'admin' => $_SESSION['admin']);
+		return array('loggedIn' => ($_SESSION['loggedIn'])?$_SESSION['loggedIn']:false, 'admin' => ($_SESSION['admin'])?$_SESSION['admin']:false);
 	}
 
 	public function deconnect() {
-		unset($_SESSION['login']);
+		$_SESSION['loggedIn']=false;
+		$_SESSION['admin']=false;
 	}
 
 	public function add_user($login, $password) {
