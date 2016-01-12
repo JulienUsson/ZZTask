@@ -7,5 +7,7 @@
 	"deconnection": "log out",
 	"todo": "Todo",
 	"inProgress": "In progress",
-	"done": "Done"
+	"done": "Done",
+	"administration": "administration",
+	"utilisateurs": "users"
 }

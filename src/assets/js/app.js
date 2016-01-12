@@ -6,28 +6,29 @@ app.config(function($routeProvider) {
 			templateUrl : './assets/template/task.html',
 			controller  : 'taskController'
         })
-        .when('/login', {
+    .when('/login', {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
-        })        
-        .otherwise({
+        })
+    .otherwise({
 			redirectTo: '/'
 		});
 });
 
 app.run(function($rootScope, $http, $cookies) {
-    $rootScope.loggedIn=false;
+  $rootScope.loggedIn=true;
+	$rootScope.admin=false;
 	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
-		if(data=="true")
-			$rootScope.loggedIn=true;
+		$rootScope.loggedIn=data.loggedIn;
+		$rootScope.admin=data.admin;
 	});
-	
+
 	$rootScope.selectedLangue=($cookies.get('langue'))?$cookies.get('langue'):'en';
 	$rootScope.langue={};
-	$http.post("./assets/json/langue_en.json").success(function(data){
+	$http.post("./assets/json/langue_"+ $rootScope.selectedLangue +".json").success(function(data){
 		$rootScope.langue=data;
 	});
-	
+
 	$rootScope.setLangue = function(langue) {
 		$rootScope.selectedLangue=langue;
 		$cookies.put('langue', $rootScope.selectedLangue);
@@ -40,10 +41,9 @@ app.run(function($rootScope, $http, $cookies) {
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
 	$scope.logout = function() {
 		$http.post("./api/authentification/", {action: "logout"}).success(function(data){
-			if(data=="true") {
 				$rootScope.loggedIn=false;
+				$rootScope.admin=false;
 				$location.url('/login');
-			}
 		});
 	}
 });
@@ -51,40 +51,48 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 app.controller('taskController', function($rootScope, $scope, $location, $http) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
+<<<<<<< HEAD
 		
 	$scope.tasks={};
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
 	});
 
+=======
+
+	$scope.tasks={}
+	$scope.tasks.todo={};
+	$scope.tasks.inProgress={};
+	$scope.tasks.done={};
+>>>>>>> 818d3c9880ba31372bc8a21f8e913ab893f74e3d
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
 	$scope.form={};
 	$scope.error={};
-	
+
 	if($rootScope.loggedIn)
 		$location.url('/');
-		
+
 	$scope.rememberMe=($cookies.get('rememberMe')=='true');
 	if($scope.rememberMe)
 		$scope.form.login=$cookies.get('login');
-	
+
 	$scope.login = function() {
 		$cookies.put('login', $scope.form.login);
 		var params= {action: "login", login: $scope.form.login, password: $scope.form.password};
 		$http.post("./api/authentification/", params).success(function(data){
-			if(data=="true") {
-				$rootScope.loggedIn=true;
+			$rootScope.loggedIn=data.loggedIn;
+			$rootScope.admin=data.admin;
+			if($rootScope.loggedIn)
 				$location.url('/');
-			}
 			else {
 				$scope.form.password="";
 				$scope.error.login=true;
 			}
 		});
 	};
-	
+
 	$scope.$watch('rememberMe', function() {
 		$cookies.put('rememberMe', $scope.rememberMe);
 	});

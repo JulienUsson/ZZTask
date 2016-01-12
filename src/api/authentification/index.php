@@ -1,7 +1,8 @@
 <?php
 
-//session_start();
-include('../../classes/authentification.php');
+session_start();
+require_once('../../classes/admin.php');
+require_once('../../classes/authentification.php');
 
 $auth=new Authentification();
 $params = json_decode(file_get_contents('php://input'),true);
@@ -11,18 +12,7 @@ switch($params['action']) {
 	case 'login':
 		$login=$auth->format_login($params['login']);
 		$password=$auth->format_password($params['password']);
-		if($login AND $password)
-		{
-			if($auth->connect($login, $password)) {
-				echo "true";
-			}
-			else {
-				echo "false";
-			}
-		}
-		else {
-			echo "false";
-		}
+		echo json_encode($auth->connect($login, $password));
 		break;
 	//--------------- LOGOUT ------------------
 	case 'logout':
@@ -31,7 +21,7 @@ switch($params['action']) {
 		break;
 	//--------------- ISCONNECTED ------------------
 	case 'isconnected':
-		echo ($auth->is_connected())?"true":"false";
+		echo json_encode($auth->is_connected());
 		break;
 }
 

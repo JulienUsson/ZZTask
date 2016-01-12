@@ -1,6 +1,6 @@
 <?php
 
-include('../../classes/tasks.php');
+require_once('../../classes/tasks.php');
 
 $tasks=new Tasks();
 $params = json_decode(file_get_contents('php://input'),true);
