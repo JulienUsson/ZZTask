@@ -51,7 +51,6 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 app.controller('taskController', function($rootScope, $scope, $location, $http) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
-//<<<<<<< HEAD
 		
 	$scope.tasks={};
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
