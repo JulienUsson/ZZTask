@@ -51,20 +51,20 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 app.controller('taskController', function($rootScope, $scope, $location, $http) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
-<<<<<<< HEAD
+//<<<<<<< HEAD
 		
 	$scope.tasks={};
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
 	});
 
-=======
+
 
 	$scope.tasks={}
 	$scope.tasks.todo={};
 	$scope.tasks.inProgress={};
 	$scope.tasks.done={};
->>>>>>> 818d3c9880ba31372bc8a21f8e913ab893f74e3d
+
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
