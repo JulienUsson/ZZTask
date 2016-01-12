@@ -4,7 +4,7 @@
 	"rememberMe": "Remember me",
 	"connection": "Connection",
 	"loginError": "Invalid login and/or password.",
-	"deconnection": "Deconnection",
+	"deconnection": "log out",
 	"todo": "Todo",
 	"inProgress": "In progress",
 	"done": "Done"

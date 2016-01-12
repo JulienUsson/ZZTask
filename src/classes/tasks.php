@@ -18,7 +18,7 @@ class Tasks {
 	public function add_task($login, $title, $description) {
 		$tasks=$this->get_tasks();
 		if(!isset($tasks[0][$title])) {
-			$tasks[0][]=array('title' => $titre, 'description' => $description);
+			$tasks[0][]=array('title' => $titre, 'description' => $description, 'user' => $login);
 			$this->_save_tasks($login, $tasks);
 			return true;
 		}
@@ -44,5 +44,7 @@ class Tasks {
 		$this->_save_tasks($tasks, $login);
 		return true;
 	}
+	
+	//public function edit_task($login, $source)
 };
 ?>

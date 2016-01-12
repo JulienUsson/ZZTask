@@ -8,25 +8,29 @@ class tasksTests extends PHPUnit_Framework_TestCase {
     {
 		$auth=new Authentification();
 		$tasks=new Tasks();
-		$auth->add_user('toto','toto');
-		$tasks->add_task('toto', 'test_title', 'test_task');
+		$auth->add_user('test_user','test_password');
+		$tasks->add_task('test_user', 'test_title', 'test_task');
 		$tasks_t=$tasks->get_tasks();
-		$this->assertArrayHasKey('test_title', $tasks_t[0]); 
-		$this->assertEquals($tasks_t[0]['test_title'], 'test_task');
-		$tasks->remove_task('toto', 0, 'test_title');
-		$auth->remove_user('toto');
+		$this->assertArrayHasKey(0, $tasks_t[0]); 
+		$this->assertEquals($tasks_t[0][0]['title'], 'test_title');
+		$this->assertEquals($tasks_t[0][0]['description'], 'test_task');
+		$this->assertEquals($tasks_t[0][0]['user'], 'test_user');
+		$tasks->remove_task('test_user', 0, 0);
+		$auth->remove_user('test_user');
     }
+
 
     public function testRemoveTask() 
     {
 		$auth=new Authentification();
 		$tasks=new Tasks();
-		$auth->add_user('toto','toto');
-		$tasks->add_task('toto', 'test_title', 'test_task');
-		$tasks->remove_task('toto', 0, 'test_title');
-		$tasks_t=get_tasks('toto');
+		$auth->add_user('test_user','test_password');
+		$tasks->add_task('test_user', 'test_title', 'test_task');
+		$tasks->remove_task('test_user', 0, 0);
+		$tasks_t=get_tasks('test_user');
 		$this->assertArrayNotHasKey('test_title', $tasks_t[0]);
-		$auth->remove_user('toto');
+		$auth->remove_user('test_user');
     }
+
 }
 ?>
