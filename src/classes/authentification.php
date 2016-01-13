@@ -57,6 +57,7 @@ class Authentification {
 		if(!isset($users[$login])) {
 			$users[$login]=$this->_password_hash($password);
 			$this->_save_users($users);
+			touch(__dir__."/../private/tasks/".$login.".json");
 			return true;
 		}
 		return false;
@@ -67,6 +68,7 @@ class Authentification {
 		if(isset($users[$login])) {
 			unset($users[$login]);
 			$this->_save_users($users);
+			unlink(__dir__."/../private/tasks/".$login.".json");
 			return true;
 		}
 		return false;

@@ -2,12 +2,11 @@
 
 class Tasks {
 	public function _construct() {}
-	
+
 	public function get_tasks($login) {
 		$tasks=json_decode(file_get_contents(__dir__."/../private/tasks/".$login.".json"), true);
 		if(!$tasks)
 			$tasks=array(array(), array(), array());
-			
 		return $tasks;
 	}
 
@@ -43,7 +42,7 @@ class Tasks {
 		$this->_save_tasks($login, $tasks);
 		return true;
 	}
-	
+
 	//public function edit_task($login, $source)
 };
 ?>
