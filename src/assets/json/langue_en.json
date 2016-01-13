@@ -9,5 +9,6 @@
 	"inProgress": "In progress",
 	"done": "Done",
 	"administration": "administration",
-	"utilisateurs": "users"
+	"utilisateurs": "users",
+	"addTask": "Add a task"
 }

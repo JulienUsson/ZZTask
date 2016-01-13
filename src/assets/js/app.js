@@ -51,19 +51,11 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 app.controller('taskController', function($rootScope, $scope, $location, $http) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
-		
+
 	$scope.tasks={};
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
 	});
-
-
-
-	$scope.tasks={}
-	$scope.tasks.todo={};
-	$scope.tasks.inProgress={};
-	$scope.tasks.done={};
-
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
@@ -96,4 +88,3 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 		$cookies.put('rememberMe', $scope.rememberMe);
 	});
 });
-
