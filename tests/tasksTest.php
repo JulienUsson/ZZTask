@@ -1,7 +1,7 @@
 <?php
 
-include(__DIR__.'/../src/classes/authentification.php');
-include(__DIR__.'/../src/classes/tasks.php');
+require_once(__DIR__.'/../src/classes/authentification.php');
+require_once(__DIR__.'/../src/classes/tasks.php');
 
 class tasksTests extends PHPUnit_Framework_TestCase {
 	public function testAddTask() {
