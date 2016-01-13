@@ -9,9 +9,10 @@ class tasksTests extends PHPUnit_Framework_TestCase {
 		$auth=new Authentification();
 		$tasks=new Tasks();
 		$auth->add_user('test_user','test_password');
+		$this->assertEquals(count($tasks_t[0]), 0);
 		$tasks->add_task('test_user', 'test_title', 'test_task');
 		$tasks_t=$tasks->get_tasks('test_user');
-		$this->assertArrayHasKey(0, $tasks_t[0]); 
+		$this->assertEquals(count($tasks_t[0]), 1);
 		$this->assertEquals($tasks_t[0][0]['title'], 'test_title');
 		$this->assertEquals($tasks_t[0][0]['description'], 'test_task');
 		$this->assertEquals($tasks_t[0][0]['user'], 'test_user');
@@ -20,7 +21,7 @@ class tasksTests extends PHPUnit_Framework_TestCase {
     }
 
 
-    public function testRemoveTask() 
+    public function testRemoveTask()
     {
 		$auth=new Authentification();
 		$tasks=new Tasks();
@@ -32,12 +33,12 @@ class tasksTests extends PHPUnit_Framework_TestCase {
 		$auth->remove_user('test_user');
     }
 
-	public function testMoveTask() 
+	public function testMoveTask()
 	{
 		$auth=new Authentification();
 		$tasks=new Tasks();
 		$auth->add_user('test_user','test_password');
-		$tasks->add_task('test_user', 'test_title', 'test_task');		
+		$tasks->add_task('test_user', 'test_title', 'test_task');
 		$tasks->move_task('test_user',0,0);
 		$tasks_t=$tasks->get_tasks('test_user');
 		$this->assertArrayNotHasKey(0,$tasks_t[0]);
