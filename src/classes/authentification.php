@@ -31,6 +31,7 @@ class Authentification {
 		$admin=new Admin();
 		$users=$this->get_users();
 		if($this->_password_verify($password, $users[$login])) {
+			$_SESSION['login']=$login;
 			$_SESSION['loggedIn']=true;
 			$_SESSION['admin']=$admin->is_admin($login);
 		}
@@ -46,6 +47,7 @@ class Authentification {
 	}
 
 	public function deconnect() {
+		unset($_SESSION['login']);
 		$_SESSION['loggedIn']=false;
 		$_SESSION['admin']=false;
 	}
