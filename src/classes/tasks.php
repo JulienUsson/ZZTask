@@ -20,7 +20,7 @@ class Tasks {
 
 	public function remove_task($id) {
 		$tasks=$this->get_tasks();
-		unset($tasks[$id]);
+		unset($tasks[$id]);	
 		$this->_save_tasks($tasks);
 		return true;
 	}
