@@ -1,5 +1,6 @@
 <?php
 
+session_start();
 require_once('../../classes/tasks.php');
 
 $tasks=new Tasks();
