@@ -2,12 +2,12 @@
   <div class="row">
 	<div class="col-md-4">
 	  <div class="panel panel-danger">
-		<div class="panel-heading h4">{{langue.todo}}
+		<div class="panel-heading task-title">{{langue.todo}}
 			<span class="badge pull-right">{{todos.length}}</span>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="todo in tasks | filter: {state: 0} as todos">
-				<span class="h4">{{todo.title}}</span>
+				<span class="task">{{todo.title}}</span>
 				<span class="pull-right">
 					<button class="btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
 					<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -15,7 +15,7 @@
 				</span>
 			</li>
 			<li class="list-group-item">
-        <span class="h4">{{langue.addTask}}</span>
+        <span class="task">{{langue.addTask}}</span>
 				<span class="pull-right">
 					<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
 				</span>
@@ -25,12 +25,12 @@
 	</div>
 	<div class="col-md-4">
 	  <div class="panel panel-warning">
-		<div class="panel-heading h4">{{langue.inProgress}}
+		<div class="panel-heading task-title">{{langue.inProgress}}
 			<span class="badge pull-right">{{inProgresses.length}}</span>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="inProgress in tasks | filter: {state: 1} as inProgresses">
-				<span class="h4">{{inProgress.title}}</span>
+				<span class="task">{{inProgress.title}}</span>
 				<span class="pull-right">
 					<button class="btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
 					<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
@@ -42,12 +42,12 @@
 	</div>
 	<div class="col-md-4">
 	  <div class="panel panel-success">
-		<div class="panel-heading h4">{{langue.done}}
+		<div class="panel-heading task-title">{{langue.done}}
 			<span class="badge pull-right">{{dones.length}}</span>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item" ng-repeat="done in tasks | filter: {state: 2} as dones">
-				<span class="h4">{{done.title}}</span>
+				<span class="task">{{done.title}}</span>
 				<span class="pull-right">
 					<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
 					<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>

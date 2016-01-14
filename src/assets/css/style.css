@@ -49,3 +49,13 @@ body {
 .nav, .pagination, .carousel, .panel-title a {
 	cursor: pointer;
 }
+
+.task-title {
+  font-size: 18px;
+}
+
+.task {
+  line-height:34px;
+  font-size: 18px;
+  vertical-align: middle;
+}
