@@ -6,12 +6,14 @@
 			<span class="badge pull-right">{{todos.length}}</span>
 		</div>
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="todo in tasks | filter: {state: 0} as todos">
+			<li class="list-group-item nga-default nga-fade" ng-repeat="todo in tasks | filter: {state: 0} as todos">
 				<span class="task">{{todo.title}}</span>
 				<span class="pull-right">
-					<button class="btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
-					<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+					<button class="btn btn-info nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-arrow-right"></span></button>
+					<button class="btn btn-warning nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-pencil"></span></button>
+					<button class="btn btn-danger nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-trash"></span></button>
+          <button class="btn btn-default" ng-if="!todo.show" ng-click="todo.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
+          <button class="btn btn-default" ng-if="todo.show" ng-click="todo.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
 				</span>
 			</li>
 			<li class="list-group-item">

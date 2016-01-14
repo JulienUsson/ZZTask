@@ -52,7 +52,7 @@ app.controller('taskController', function($rootScope, $scope, $location, $http) 
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
 
-	$scope.tasks={};
+	$scope.tasks=[];
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
 	});
