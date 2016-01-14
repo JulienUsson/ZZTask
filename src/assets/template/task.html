@@ -31,12 +31,14 @@
 			<span class="badge pull-right">{{inProgresses.length}}</span>
 		</div>
 		<ul class="list-group">
-			<li class="list-group-item" ng-repeat="inProgress in tasks | filter: {state: 1} as inProgresses">
+			<li class="list-group-item nga-default nga-fade" ng-repeat="inProgress in tasks | filter: {state: 1} as inProgresses">
 				<span class="task">{{inProgress.title}}</span>
-				<span class="pull-right">
-					<button class="btn btn-default"><span class="glyphicon glyphicon-menu-right"></span></button>
-					<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+        <span class="pull-right">
+					<button class="btn btn-info nga-fast nga-fade" ng-if="inProgress.show"><span class="glyphicon glyphicon-arrow-right"></span></button>
+					<button class="btn btn-warning nga-fast nga-fade" ng-if="inProgress.show"><span class="glyphicon glyphicon-pencil"></span></button>
+					<button class="btn btn-danger nga-fast nga-fade" ng-if="inProgress.show"><span class="glyphicon glyphicon-trash"></span></button>
+          <button class="btn btn-default" ng-if="!inProgress.show" ng-click="inProgress.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
+          <button class="btn btn-default" ng-if="inProgress.show" ng-click="inProgress.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
 				</span>
 			</li>
 		</ul>
@@ -47,12 +49,14 @@
 		<div class="panel-heading task-title">{{langue.done}}
 			<span class="badge pull-right">{{dones.length}}</span>
 		</div>
-		<ul class="list-group">
+		<ul class="list-group nga-default nga-fade">
 			<li class="list-group-item" ng-repeat="done in tasks | filter: {state: 2} as dones">
 				<span class="task">{{done.title}}</span>
-				<span class="pull-right">
-					<button class="btn btn-warning"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger"><span class="glyphicon glyphicon-trash"></span></button>
+        <span class="pull-right">
+					<button class="btn btn-warning nga-fast nga-fade" ng-if="done.show"><span class="glyphicon glyphicon-pencil"></span></button>
+					<button class="btn btn-danger nga-fast nga-fade" ng-if="done.show"><span class="glyphicon glyphicon-trash"></span></button>
+          <button class="btn btn-default" ng-if="!done.show" ng-click="done.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
+          <button class="btn btn-default" ng-if="done.show" ng-click="done.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
 				</span>
 			</li>
 		</ul>
