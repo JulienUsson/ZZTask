@@ -10,5 +10,10 @@
 	"done": "Done",
 	"administration": "administration",
 	"utilisateurs": "users",
-	"addTask": "Add a task"
+	"addTask": "Add a task",
+	"submit": "Submit",
+	"cancel": "Cancel",
+	"title": "Title",
+	"description": "Description",
+	"user": "User"
 }

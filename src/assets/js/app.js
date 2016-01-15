@@ -48,7 +48,7 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 	}
 });
 
-app.controller('taskController', function($rootScope, $scope, $location, $http) {
+app.controller('taskController', function($rootScope, $scope, $location, $http, $uibModal) {
 	if(!$rootScope.loggedIn)
 		$location.url('/login');
 
@@ -56,6 +56,16 @@ app.controller('taskController', function($rootScope, $scope, $location, $http) 
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
 	});
+
+	$scope.add = function() {
+		var modalInstance = $uibModal.open({
+			templateUrl: 'assets/template/modal/addTask.html',
+			controller: 'addTaskModalController'
+		});
+		modalInstance.result.then(function(task) {
+			$scope.tasks.push(task);
+		}, null);
+	}
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
@@ -87,4 +97,9 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 	$scope.$watch('rememberMe', function() {
 		$cookies.put('rememberMe', $scope.rememberMe);
 	});
+});
+
+app.controller('addTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance) {
+	$scope.form = {};
+	$scope.form.state=0;
 });

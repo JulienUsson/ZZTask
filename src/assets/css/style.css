@@ -50,12 +50,19 @@ body {
 	cursor: pointer;
 }
 
+.task-header {
+  font-size: 18px;
+}
+
 .task-title {
   font-size: 18px;
 }
 
-.task {
-  line-height:34px;
-  font-size: 18px;
-  vertical-align: middle;
+.task-buttons {
+  float: right;
+}
+
+.list-group-item {
+  min-height: 55px;
+  height: auto;
 }

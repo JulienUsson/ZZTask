@@ -2,62 +2,65 @@
   <div class="row">
 	<div class="col-md-4">
 	  <div class="panel panel-danger">
-		<div class="panel-heading task-title">{{langue.todo}}
+		<div class="panel-heading task-header">{{langue.todo}}
 			<span class="badge pull-right">{{todos.length}}</span>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item nga-default nga-fade" ng-repeat="todo in tasks | filter: {state: 0} as todos">
-				<span class="task">{{todo.title}}</span>
-				<span class="pull-right">
-					<button class="btn btn-info nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-arrow-right"></span></button>
-					<button class="btn btn-warning nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-trash"></span></button>
+        <div class="task-buttons">
+          <button class="btn btn-info nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-arrow-right"></span></button>
+          <button class="btn btn-warning nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-trash"></span></button>
           <button class="btn btn-default" ng-if="!todo.show" ng-click="todo.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
           <button class="btn btn-default" ng-if="todo.show" ng-click="todo.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
-				</span>
+        </div>
+        <div class="task-title">{{todo.title}}</div>
+        <div class="task-description">{{todo.description}}</div>
 			</li>
 			<li class="list-group-item">
-        <span class="task">{{langue.addTask}}</span>
-				<span class="pull-right">
-					<button class="btn btn-success"><span class="glyphicon glyphicon-plus"></span></button>
-				</span>
+        <div class="task-buttons">
+          <button class="btn btn-success" ng-click="add()"><span class="glyphicon glyphicon-plus"></span></button>
+        </div>
+        <div class="task-title">{{langue.addTask}}</div>
 			</li>
 		</ul>
 	  </div>
 	</div>
 	<div class="col-md-4">
 	  <div class="panel panel-warning">
-		<div class="panel-heading task-title">{{langue.inProgress}}
+		<div class="panel-heading task-header">{{langue.inProgress}}
 			<span class="badge pull-right">{{inProgresses.length}}</span>
 		</div>
 		<ul class="list-group">
 			<li class="list-group-item nga-default nga-fade" ng-repeat="inProgress in tasks | filter: {state: 1} as inProgresses">
-				<span class="task">{{inProgress.title}}</span>
-        <span class="pull-right">
-					<button class="btn btn-info nga-fast nga-fade" ng-if="inProgress.show"><span class="glyphicon glyphicon-arrow-right"></span></button>
-					<button class="btn btn-warning nga-fast nga-fade" ng-if="inProgress.show"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger nga-fast nga-fade" ng-if="inProgress.show"><span class="glyphicon glyphicon-trash"></span></button>
-          <button class="btn btn-default" ng-if="!inProgress.show" ng-click="inProgress.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
-          <button class="btn btn-default" ng-if="inProgress.show" ng-click="inProgress.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
-				</span>
+        <div class="task-buttons">
+          <button class="btn btn-info nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-arrow-right"></span></button>
+          <button class="btn btn-warning nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-trash"></span></button>
+          <button class="btn btn-default" ng-if="!todo.show" ng-click="todo.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
+          <button class="btn btn-default" ng-if="todo.show" ng-click="todo.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
+        </div>
+        <div class="task-title">{{inProgress.title}}</div>
+        <div class="task-description">{{inProgress.description}}</div>
 			</li>
 		</ul>
 	  </div>
 	</div>
 	<div class="col-md-4">
 	  <div class="panel panel-success">
-		<div class="panel-heading task-title">{{langue.done}}
+		<div class="panel-heading task-header">{{langue.done}}
 			<span class="badge pull-right">{{dones.length}}</span>
 		</div>
 		<ul class="list-group nga-default nga-fade">
 			<li class="list-group-item" ng-repeat="done in tasks | filter: {state: 2} as dones">
-				<span class="task">{{done.title}}</span>
-        <span class="pull-right">
-					<button class="btn btn-warning nga-fast nga-fade" ng-if="done.show"><span class="glyphicon glyphicon-pencil"></span></button>
-					<button class="btn btn-danger nga-fast nga-fade" ng-if="done.show"><span class="glyphicon glyphicon-trash"></span></button>
-          <button class="btn btn-default" ng-if="!done.show" ng-click="done.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
-          <button class="btn btn-default" ng-if="done.show" ng-click="done.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
-				</span>
+        <div class="task-buttons">
+          <button class="btn btn-warning nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-pencil"></span></button>
+          <button class="btn btn-danger nga-fast nga-fade" ng-if="todo.show"><span class="glyphicon glyphicon-trash"></span></button>
+          <button class="btn btn-default" ng-if="!todo.show" ng-click="todo.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
+          <button class="btn btn-default" ng-if="todo.show" ng-click="todo.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
+        </div>
+        <div class="task-title">{{done.title}}</div>
+        <div class="task-description">{{done.description}}</div>
 			</li>
 		</ul>
 	  </div>
