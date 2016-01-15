@@ -80,6 +80,11 @@ app.controller('taskController', function($rootScope, $scope, $location, $http, 
 	$scope.delete = function(index) {
 		$scope.tasks.splice(index, 1);
 	}
+
+	$scope.changeState = function(index) {
+		$scope.tasks[index].state++;
+		$scope.tasks[index].show=0;
+	}
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
