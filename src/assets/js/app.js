@@ -66,6 +66,20 @@ app.controller('taskController', function($rootScope, $scope, $location, $http, 
 			$scope.tasks.push(task);
 		}, null);
 	}
+
+	$scope.edit = function(index) {
+		var modalInstance = $uibModal.open({
+			templateUrl: 'assets/template/modal/editTask.html',
+			controller: 'editTaskModalController'
+		});
+		modalInstance.result.then(function(task) {
+			$scope.tasks[index]=task;
+		}, null);
+	}
+
+	$scope.delete = function(index) {
+		$scope.tasks.splice(index, 1);
+	}
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
