@@ -85,7 +85,7 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			$scope.tasks[index].user=task.user;
 			$scope.tasks[index].state=task.state;
 			$scope.tasks[index].show=0;
-			$http.post("./api/tasks/", {'action': 'edit_task', 'task': task, 'index': index});
+			$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index});
 		}, null);
 	}
 
@@ -99,6 +99,7 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	$scope.changeState = function(index) {
 		$scope.tasks[index].state++;
 		$scope.tasks[index].show=0;
+		$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index});
 	}
 });
 
