@@ -23,5 +23,13 @@
 	"dangerDelete": "Do you really want to delete this task?",
 	"ok": "ok",
 	"error": "Error",
-	"errorMessage": "A problem occurred."
+	"errorMessage": "A problem occurred.",
+	"account": "Account",
+	"changePassword": "Change your password",
+	"save": "Save",
+	"actualPassword": "Actual password",
+	"newPassword": "New password",
+	"confirmPassord": "Confirm password",
+	"wrongPassword": "Wrong password.",
+	"updatedPassword": "Updated password."
 }

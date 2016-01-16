@@ -80,3 +80,7 @@ body {
   min-height: 55px;
   height: auto;
 }
+
+.page-header {
+    margin-top: 0;
+}

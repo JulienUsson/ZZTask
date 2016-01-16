@@ -10,6 +10,10 @@ app.config(function($routeProvider) {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
         })
+		.when('/account/change-password', {
+			templateUrl : './assets/template/change-password.html',
+			controller  : 'changePasswordController'
+		})
     .otherwise({
 			redirectTo: '/'
 		});
@@ -160,6 +164,10 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			});
 		});
 	}
+});
+
+app.controller('changePasswordController', function($rootScope, $scope, $http) {
+
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {

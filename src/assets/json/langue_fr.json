@@ -23,5 +23,13 @@
 	"dangerDelete": "Voulez-vous vraiment supprimer cette tâche?",
 	"ok": "ok",
 	"error": "Erreur",
-	"errorMessage": "Un problème est survenu."
+	"errorMessage": "Un problème est survenu.",
+	"account": "Mon Compte",
+	"changePassword": "Changer de mot de passe",
+	"save": "Sauvegarder",
+	"actualPassword": "Mot de passe actuel",
+	"newPassword": "Nouveau mot de passe",
+	"confirmPassord": "Confirmer le nouveau mot de passe",
+	"wrongPassword": "Mot de passe incorrecte.",
+	"updatedPassword": "Mot de passe modifié."
 }
