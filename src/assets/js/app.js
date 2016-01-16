@@ -65,6 +65,7 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		});
 		modalInstance.result.then(function(task) {
 			$scope.tasks.push(task);
+			$http.post("./api/tasks/", {'action': 'add_task', 'task': task});
 		}, null);
 	}
 
@@ -84,12 +85,14 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			$scope.tasks[index].user=task.user;
 			$scope.tasks[index].state=task.state;
 			$scope.tasks[index].show=0;
+			$http.post("./api/tasks/", {'action': 'edit_task', 'task': task, 'index': index});
 		}, null);
 	}
 
 	$scope.delete = function(index) {
 		dangerModal($uibModal, $rootScope.langue.dangerDelete, function() {
 			$scope.tasks.splice(index, 1);
+			$http.post("./api/tasks/", {'action': 'delete_task', 'index': index});
 		})
 	}
 

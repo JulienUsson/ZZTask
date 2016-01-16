@@ -12,6 +12,8 @@ class Tasks {
 	}
 
 	public function add_task($title, $description, $user, $state=0) {
+		if(!$title || !$description || !$user || $state<0 || $state>2)
+			return false;
 		$tasks=$this->get_tasks();
 		$tasks[]=array('title' => $title, 'description' => $description, 'user' => $user, 'state' => $state);
 		$this->_save_tasks($tasks);
@@ -20,15 +22,20 @@ class Tasks {
 
 	public function remove_task($id) {
 		$tasks=$this->get_tasks();
-		unset($tasks[$id]);	
-		$this->_save_tasks($tasks);
-		return true;
+		if(array_key_exists($id, $tasks)) {
+			unset($tasks[$id]);
+			$this->_save_tasks($tasks);
+			return true;
+		}
+		return false;
 	}
 
 	public function edit_task($id, $title, $description, $user, $state) {
-		$this->remove_task($id);
-		$this->add_task($title, $description, $user, $state);
-		return true;
+		if(!$title || !$description || !$user || $state<0 || $state>2)
+			return false;
+		if($this->remove_task($id))
+			return $this->add_task($title, $description, $user, $state);
+		return false;
 	}
 };
 ?>
