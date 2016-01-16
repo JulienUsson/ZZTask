@@ -57,8 +57,8 @@
         <div class="task-buttons">
           <button class="btn btn-warning nga-fast nga-fade" ng-click="edit($index)" ng-if="done.show"><span class="glyphicon glyphicon-pencil"></span></button>
           <button class="btn btn-danger nga-fast nga-fade" ng-click="delete($index)" ng-if="done.show"><span class="glyphicon glyphicon-trash"></span></button>
-          <button class="btn btn-default" ng-if="!todo.show" ng-click="done.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
-          <button class="btn btn-default" ng-if="todo.show" ng-click="done.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
+          <button class="btn btn-default" ng-if="!done.show" ng-click="done.show=1"><span class="glyphicon glyphicon glyphicon-menu-left"></span></button>
+          <button class="btn btn-default" ng-if="done.show" ng-click="done.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
         </div>
         <div class="task-title">{{done.title}}</div>
         <div class="task-description">{{done.description}}</div>
