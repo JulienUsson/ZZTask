@@ -9,6 +9,7 @@
 	"inProgress": "In progress",
 	"done": "Done",
 	"state": "State",
+	"warning": "Warning",
 	"administration": "administration",
 	"utilisateurs": "users",
 	"addTask": "Add a task",
@@ -18,5 +19,6 @@
 	"cancel": "Cancel",
 	"title": "Title",
 	"description": "Description",
-	"user": "User"
+	"user": "User",
+	"dangerDelete": "Do you really want to delete this task?"
 }

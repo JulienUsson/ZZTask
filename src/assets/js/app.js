@@ -88,7 +88,9 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	}
 
 	$scope.delete = function(index) {
-		$scope.tasks.splice(index, 1);
+		dangerModal($uibModal, $rootScope.langue.dangerDelete, function() {
+			$scope.tasks.splice(index, 1);
+		})
 	}
 
 	$scope.changeState = function(index) {
@@ -142,4 +144,22 @@ app.controller('editTaskModalController', function($rootScope, $scope, $http, $u
 	$scope.form.description=task.description;
 	$scope.form.user=task.user;
 	$scope.form.state=task.state;
+});
+
+function dangerModal($uibModal, message, callback) {
+	var modalInstance = $uibModal.open({
+		templateUrl: 'assets/template/modal/danger.html',
+		controller: 'dangerModalController',
+		resolve: {
+			message: function () {
+				return message;
+			}
+		}
+	});
+
+	modalInstance.result.then(callback, null);
+}
+
+app.controller('dangerModalController', function($scope, $uibModalInstance, message) {
+	$scope.message = message;
 });

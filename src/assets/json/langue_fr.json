@@ -9,6 +9,7 @@
 	"inProgress": "En cours",
 	"done": "Terminée",
 	"state": "Etat",
+	"warning": "Attention",
 	"administration": "administration",
 	"utilisateurs": "utilisateurs",
 	"addTask": "Ajouter une tâche",
@@ -18,5 +19,6 @@
 	"cancel": "Annuler",
 	"title": "Titre",
 	"description": "Description",
-	"user": "Utilisateur"
+	"user": "Utilisateur",
+	"dangerDelete": "Voulez-vous vraiment supprimer cette tâche?"
 }
