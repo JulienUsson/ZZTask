@@ -15,6 +15,12 @@ app.config(function($routeProvider) {
 		});
 });
 
+app.filter('markdown', function($sce) {
+  return function(input) {
+    return $sce.trustAsHtml(micromarkdown.parse(input));
+  }
+});
+
 app.run(function($rootScope, $http, $cookies, $location) {
   $rootScope.loggedIn=true;
 	$rootScope.admin=false;

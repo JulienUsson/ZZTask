@@ -15,7 +15,7 @@
           <button class="btn btn-default" ng-if="todo.show" ng-click="todo.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
         </div>
         <div class="task-title">{{todo.title}}</div>
-        <div class="task-description">{{todo.description}}</div>
+        <div class="task-description" ng-bind-html="todo.description | markdown"></div>
         <div class="task-user">{{langue.affectedTo}} {{todo.user}}</div>
 			</li>
 			<li class="list-group-item">
@@ -42,7 +42,7 @@
           <button class="btn btn-default" ng-if="inProgress.show" ng-click="inProgress.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
         </div>
         <div class="task-title">{{inProgress.title}}</div>
-        <div class="task-description">{{inProgress.description}}</div>
+        <div class="task-description" ng-bind-html="inProgress.description | markdown"></div>
         <div class="task-user">{{langue.affectedTo}} {{inProgress.user}}</div>
 			</li>
 		</ul>
@@ -62,7 +62,7 @@
           <button class="btn btn-default" ng-if="done.show" ng-click="done.show=0"><span class="glyphicon glyphicon glyphicon-menu-right"></span></button>
         </div>
         <div class="task-title">{{done.title}}</div>
-        <div class="task-description">{{done.description}}</div>
+        <div class="task-description" ng-bind-html="done.description | markdown"></div>
         <div class="task-user">{{langue.affectedTo}} {{done.user}}</div>
 			</li>
 		</ul>
