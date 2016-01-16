@@ -15,12 +15,16 @@ app.config(function($routeProvider) {
 		});
 });
 
-app.run(function($rootScope, $http, $cookies) {
+app.run(function($rootScope, $http, $cookies, $location) {
   $rootScope.loggedIn=true;
 	$rootScope.admin=false;
 	$http.post("./api/authentification/", {action: "isconnected"}).success(function(data){
 		$rootScope.loggedIn=data.loggedIn;
 		$rootScope.admin=data.admin;
+		if(!$rootScope.loggedIn)
+			$location.url('/login');
+		else if($location.url()=='/login')
+			$location.url('/');
 	});
 
 	$rootScope.selectedLangue=($cookies.get('langue'))?$cookies.get('langue'):'en';
@@ -48,10 +52,7 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 	}
 });
 
-app.controller('taskController', function($rootScope, $scope, $location, $http, $uibModal) {
-	if(!$rootScope.loggedIn)
-		$location.url('/login');
-
+app.controller('taskController', function($rootScope, $scope, $http, $uibModal) {
 	$scope.tasks=[];
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
@@ -87,12 +88,9 @@ app.controller('taskController', function($rootScope, $scope, $location, $http, 
 	}
 });
 
-app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
+app.controller('loginController', function($rootScope, $scope, $http, $cookies) {
 	$scope.form={};
 	$scope.error={};
-
-	if($rootScope.loggedIn)
-		$location.url('/');
 
 	$scope.rememberMe=($cookies.get('rememberMe')=='true');
 	if($scope.rememberMe)

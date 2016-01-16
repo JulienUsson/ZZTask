@@ -43,7 +43,7 @@ class Authentification {
 	}
 
 	public function is_connected() {
-		return array('loggedIn' => ($_SESSION['loggedIn'])?$_SESSION['loggedIn']:false, 'admin' => ($_SESSION['admin'])?$_SESSION['admin']:false);
+		return array('loggedIn' => (isset($_SESSION['loggedIn']))?$_SESSION['loggedIn']:false, 'admin' => (isset($_SESSION['admin']))?$_SESSION['admin']:false);
 	}
 
 	public function deconnect() {
