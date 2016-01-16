@@ -71,10 +71,19 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	$scope.edit = function(index) {
 		var modalInstance = $uibModal.open({
 			templateUrl: 'assets/template/modal/editTask.html',
-			controller: 'editTaskModalController'
+			controller: 'editTaskModalController',
+			resolve: {
+				task: function () {
+					return $scope.tasks[index];
+				}
+			}
 		});
 		modalInstance.result.then(function(task) {
-			$scope.tasks[index]=task;
+			$scope.tasks[index].title=task.title;
+			$scope.tasks[index].description=task.description;
+			$scope.tasks[index].user=task.user;
+			$scope.tasks[index].state=task.state;
+			$scope.tasks[index].show=0;
 		}, null);
 	}
 
@@ -88,7 +97,7 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	}
 });
 
-app.controller('loginController', function($rootScope, $scope, $http, $cookies) {
+app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
 	$scope.form={};
 	$scope.error={};
 
@@ -119,4 +128,18 @@ app.controller('loginController', function($rootScope, $scope, $http, $cookies) 
 app.controller('addTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance) {
 	$scope.form = {};
 	$scope.form.state=0;
+});
+
+app.controller('editTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance, task) {
+	$scope.states=[
+		{id: 0, label: $rootScope.langue.todo},
+		{id: 1, label: $rootScope.langue.inProgress},
+		{id: 2, label: $rootScope.langue.done}
+	];
+
+	$scope.form = {};
+	$scope.form.title=task.title;
+	$scope.form.description=task.description;
+	$scope.form.user=task.user;
+	$scope.form.state=task.state;
 });

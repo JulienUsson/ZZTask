@@ -1,0 +1,39 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$dismiss()"><span>&times;</span></button>
+  <h4 class="modal-title">{{langue.editTask}}</h4>
+</div>
+<form class="form-horizontal" ng-submit="$close(form)">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="titre" class="col-sm-2 control-label">{{langue.title}}</label>
+      <div class="col-sm-10">
+        <input type="text" ng-model="form.title" class="form-control" id="titre" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="description" class="col-sm-2 control-label">{{langue.description}}</label>
+      <div class="col-sm-10">
+        <textarea type="text" ng-model="form.description" rows="2" class="form-control" id="description" required></textarea>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="utilisateur" class="col-sm-2 control-label">{{langue.user}}</label>
+      <div class="col-sm-10">
+        <select type="text" ng-model="form.user" class="form-control" id="utilisateur" required>
+          <!-- a terminer -->
+          <option>test</option>
+        </select>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="state" class="col-sm-2 control-label">{{langue.state}}</label>
+      <div class="col-sm-10">
+        <select type="text" ng-model="form.state" ng-options="state.id as state.label for state in states" class="form-control" id="state" required></select>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="$dismiss()">{{langue.cancel}}</button>
+    <button type="submit" class="btn btn-warning">{{langue.submit}}</button>
+  </div>
+</form>
