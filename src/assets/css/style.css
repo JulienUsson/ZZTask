@@ -56,13 +56,23 @@ body {
 
 .task-title {
   font-size: 18px;
+  vertical-align: middle;
+  line-height: 35px;
+  padding-bottom: 5px;
 }
 
 .task-buttons {
   float: right;
 }
 
+.task-description ul {
+  padding-left: 15px;
+  list-style: disc;
+}
+
 .task-user {
+  font-size: 12px;
+  text-align: right;
   font-style: italic;
 }
 
