@@ -56,6 +56,9 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	$scope.tasks=[];
 	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
 		$scope.tasks=data;
+	})
+	.error(function(data){
+		errorModal($uibModal, function() {});
 	});
 
 	$scope.add = function() {
@@ -65,7 +68,19 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		});
 		modalInstance.result.then(function(task) {
 			$scope.tasks.push(task);
-			$http.post("./api/tasks/", {'action': 'add_task', 'task': task});
+			$http.post("./api/tasks/", {'action': 'add_task', 'task': task})
+			.success(function(data){
+				if(data!="true") {
+					errorModal($uibModal, function() {
+						location.reload();
+					});
+				}
+			})
+			.error(function(data){
+				errorModal($uibModal, function() {
+					location.reload();
+				});
+			});
 		}, null);
 	}
 
@@ -85,21 +100,57 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			$scope.tasks[index].user=task.user;
 			$scope.tasks[index].state=task.state;
 			$scope.tasks[index].show=0;
-			$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index});
+			$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index})
+			.success(function(data){
+				if(data!="true") {
+					errorModal($uibModal, function() {
+						location.reload();
+					});
+				}
+			})
+			.error(function(data){
+				errorModal($uibModal, function() {
+					location.reload();
+				});
+			});
 		}, null);
 	}
 
 	$scope.delete = function(index) {
 		dangerModal($uibModal, $rootScope.langue.dangerDelete, function() {
 			$scope.tasks.splice(index, 1);
-			$http.post("./api/tasks/", {'action': 'delete_task', 'index': index});
+			$http.post("./api/tasks/", {'action': 'delete_task', 'index': index})
+			.success(function(data){
+				if(data!="true") {
+					errorModal($uibModal, function() {
+						location.reload();
+					});
+				}
+			})
+			.error(function(data){
+				errorModal($uibModal, function() {
+					location.reload();
+				});
+			});
 		})
 	}
 
 	$scope.changeState = function(index) {
 		$scope.tasks[index].state++;
 		$scope.tasks[index].show=0;
-		$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index});
+		$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index})
+		.success(function(data){
+			if(data!="true") {
+				errorModal($uibModal, function() {
+					location.reload();
+				});
+			}
+		})
+		.error(function(data){
+			errorModal($uibModal, function() {
+				location.reload();
+			});
+		});
 	}
 });
 
@@ -167,3 +218,11 @@ function dangerModal($uibModal, message, callback) {
 app.controller('dangerModalController', function($scope, $uibModalInstance, message) {
 	$scope.message = message;
 });
+
+function errorModal($uibModal, callback) {
+	var modalInstance = $uibModal.open({
+		templateUrl: 'assets/template/modal/error.html'
+	});
+
+	modalInstance.result.then(callback, callback);
+}

@@ -20,5 +20,8 @@
 	"title": "Titre",
 	"description": "Description",
 	"user": "Utilisateur",
-	"dangerDelete": "Voulez-vous vraiment supprimer cette tâche?"
+	"dangerDelete": "Voulez-vous vraiment supprimer cette tâche?",
+	"ok": "ok",
+	"error": "Erreur",
+	"errorMessage": "Un problème est survenu."
 }

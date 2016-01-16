@@ -20,5 +20,8 @@
 	"title": "Title",
 	"description": "Description",
 	"user": "User",
-	"dangerDelete": "Do you really want to delete this task?"
+	"dangerDelete": "Do you really want to delete this task?",
+	"ok": "ok",
+	"error": "Error",
+	"errorMessage": "A problem occurred."
 }
