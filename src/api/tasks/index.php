@@ -14,7 +14,11 @@ $params = json_decode(file_get_contents('php://input'),true);
 switch($params['action']) {
 	//--------------- GET_TASKS -------------------------------
 	case 'get_tasks':
-		echo json_encode($tasks->get_tasks());
+		$tasks=$tasks->get_tasks();
+		foreach ($tasks as $key => $value){
+		  $tasks[$key]['id']=$key;
+		}
+		echo json_encode(array_values($tasks));
 		break;
 		//--------------- ADD_TASKS --------------
 	case 'add_task':
