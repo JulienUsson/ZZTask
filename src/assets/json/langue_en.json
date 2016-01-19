@@ -31,5 +31,6 @@
 	"newPassword": "New password",
 	"confirmPassord": "Confirm password",
 	"wrongPassword": "Wrong password.",
-	"updatedPassword": "Updated password."
+	"updatedPassword": "Updated password.",
+	"wrongConfirmPassword": "Passwords must match."
 }

@@ -167,7 +167,34 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 });
 
 app.controller('changePasswordController', function($rootScope, $scope, $http) {
-
+	$scope.error={};
+	$scope.form={};
+	$scope.changePassword = function() {
+		if($scope.form.newPassword!=$scope.form.confirmPassword){
+			$scope.error.passwordConfirm=true;
+			$scope.error.password=false;
+			$scope.success=false;
+			return;
+		}
+		$http.post("./api/authentification/", {'action': 'changePassword', 'oldPassword': $scope.form.oldPassword, 'newPassword': $scope.form.newPassword})
+		.success(function(data){
+			if(data=="true") {
+				$scope.success=true;
+				$scope.error.password=false;
+				$scope.error.passwordConfirm=false;
+			}
+			else {
+				$scope.success=false;
+				$scope.error.password=true;
+			}
+			$scope.form.oldPassword="";
+			$scope.form.newPassword="";
+			$scope.form.confirmPassword="";
+		})
+		.error(function(data){
+			errorModal($uibModal, function() {});
+		});
+	}
 });
 
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {

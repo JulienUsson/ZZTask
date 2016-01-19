@@ -31,5 +31,6 @@
 	"newPassword": "Nouveau mot de passe",
 	"confirmPassord": "Confirmer le nouveau mot de passe",
 	"wrongPassword": "Mot de passe incorrecte.",
-	"updatedPassword": "Mot de passe modifié."
+	"updatedPassword": "Mot de passe modifié.",
+	"wrongConfirmPassword": "Les mots de passes doivent être identiques."
 }
