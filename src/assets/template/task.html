@@ -53,8 +53,8 @@
 		<div class="panel-heading task-header">{{langue.done}}
 			<span class="badge pull-right">{{dones.length}}</span>
 		</div>
-		<ul class="list-group nga-default nga-fade">
-			<li class="list-group-item" ng-repeat="done in tasks[2] track by done.id">
+		<ul class="list-group">
+			<li class="list-group-item nga-default nga-fade" ng-repeat="done in tasks[2] track by done.id">
         <div class="task-buttons">
           <button class="btn btn-warning nga-fast nga-fade" ng-click="edit($index, 2)" ng-if="done.show"><span class="glyphicon glyphicon-pencil"></span></button>
           <button class="btn btn-danger nga-fast nga-fade" ng-click="delete($index, 2)" ng-if="done.show"><span class="glyphicon glyphicon-trash"></span></button>
