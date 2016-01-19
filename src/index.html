@@ -30,14 +30,19 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
 		  <ul class="nav navbar-nav navbar-right">
-        <li ng-show="admin" uib-dropdown><a uib-dropdown-toggle>{{langue.administration}} <span class="caret"></span></a>
+        <li><a ng-if="selectedLangue == 'fr'" ng-click="setLangue('en')" href="">Français</a></li>
+        <li><a ng-if="selectedLangue == 'en'" ng-click="setLangue('fr')" href="">English</a></li>
+        <li ng-if="admin" uib-dropdown><a uib-dropdown-toggle>{{langue.administration}} <span class="caret"></span></a>
           <ul class="uib-dropdown-menu">
             <li><a href="#/admin/users">{{langue.utilisateurs}}</a></li>
           </ul>
         </li>
-        <li><a ng-show="selectedLangue == 'fr'" ng-click="setLangue('en')" href="">Français</a></li>
-        <li><a ng-show="selectedLangue == 'en'" ng-click="setLangue('fr')" href="">English</a></li>
-			  <li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
+        <li uib-dropdown><a uib-dropdown-toggle>{{langue.account}} <span class="caret"></span></a>
+          <ul class="uib-dropdown-menu">
+            <li><a href="#/account/change-password">{{langue.changePassword}}</a></li>
+            <li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
+          </ul>
+        </li>
 		  </ul>
 		</div>
 	  </div>

@@ -48,6 +48,7 @@ class Authentification {
 
 	public function deconnect() {
 		unset($_SESSION['login']);
+		$_SESSION['login']=false;
 		$_SESSION['loggedIn']=false;
 		$_SESSION['admin']=false;
 	}
