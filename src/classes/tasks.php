@@ -33,9 +33,10 @@ class Tasks {
 	public function edit_task($id, $title, $description, $user, $state) {
 		if(!$title || !$description || !$user || $state<0 || $state>2)
 			return false;
-		if($this->remove_task($id))
-			return $this->add_task($title, $description, $user, $state);
-		return false;
+		$tasks=$this->get_tasks();
+		$tasks[$id]=array('title' => $title, 'description' => $description, 'user' => $user, 'state' => $state);
+		$this->_save_tasks($tasks);
+		return true;
 	}
 };
 ?>

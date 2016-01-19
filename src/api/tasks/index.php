@@ -12,7 +12,7 @@ if(!$auth->is_connected())
 
 $params = json_decode(file_get_contents('php://input'),true);
 switch($params['action']) {
-		//--------------- ADD_TASKS --------------
+	//--------------- ADD_TASKS --------------
 	case 'add_task':
 		$tasks->add_task($params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']);
 		break;

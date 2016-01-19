@@ -102,6 +102,7 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			$http.post("./api/tasks/", {'action': 'edit_task', 'task': task, 'id': $scope.tasks[state][index].id})
 			.success(function(data){
 					$scope.tasks=data;
+					scope.$apply();
 			})
 			.error(function(data){
 				errorModal($uibModal, function() {
