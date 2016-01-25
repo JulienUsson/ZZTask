@@ -1,0 +1,31 @@
+<div class="modal-header">
+  <button type="button" class="close" ng-click="$dismiss()"><span>&times;</span></button>
+  <h4 class="modal-title">{{langue.addUser}}</h4>
+</div>
+<form class="form-horizontal" ng-submit="$close(form)">
+  <div class="modal-body">
+    <div class="form-group">
+      <label for="login" class="col-sm-2 control-label">{{langue.login}}</label>
+      <div class="col-sm-10">
+        <input type="text" ng-model="form.login" class="form-control" id="login" required>
+      </div>
+    </div>
+    <div class="form-group">
+      <label for="admin" class="col-sm-2 control-label">{{langue.admin}}</label>
+      <div class="col-sm-10">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" ng-model="form.isAdmin">
+          </label>
+        </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <p class="user-sentence">{{langue.defaultPass}} <b>"password"</b></p>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-default" ng-click="$dismiss()">{{langue.cancel}}</button>
+    <button type="submit" class="btn btn-success">{{langue.submit}}</button>
+  </div>
+</form>

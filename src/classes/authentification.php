@@ -82,6 +82,16 @@ class Authentification {
 		return false;
 	}
 
+	public function reset_password($login) {
+		$users=$this->get_users();
+		if(isset($users[$login])) {
+			$users[$login]=$this->_password_hash("password");
+			$this->_save_users($users);
+			return true;
+		}
+		return false;
+	}
+
 	private function _password_hash($password) {
 		return crypt("SaulasRomain".$password."UssonJulien",'$6$rounds=10000$OnOpQps6zF5fMApytNkv6YshxTIWQ5FI$');
 	}

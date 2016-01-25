@@ -10,6 +10,10 @@ app.config(function($routeProvider) {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
         })
+		.when('/users', {
+	 templateUrl : './assets/template/users.html',
+	 controller  : 'adminUsersController'
+			 })
     .otherwise({
 			redirectTo: '/'
 		});
@@ -51,6 +55,7 @@ app.run(function($rootScope, $http, $cookies, $location) {
 });
 
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
+
 	$scope.logout = function() {
 		$http.post("./api/authentification/", {action: "logout"}).success(function(data){
 				$rootScope.loggedIn=false;
@@ -58,6 +63,108 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 				$location.url('/login');
 		});
 	}
+});
+
+app.controller('adminUsersController', function($rootScope, $scope, $location, $http, $uibModal) {
+	if(!$rootScope.loggedIn || !$rootScope.admin)
+		$location.url('/login');
+
+		$scope.user={};
+		$http.post("./api/admin/", {action: "get_users"}).success(function(data){
+			$scope.users=data;
+		});
+
+		$scope.setAdmin = function(index) {
+			if($scope.users[index].isAdmin == 'true'){
+				var dialog=$rootScope.langue.dangerUnsetAdmin;
+			}
+			else {
+				var dialog=$rootScope.langue.dangerSetAdmin;
+			}
+			dangerModal($uibModal, dialog, function() {
+				$http.post("./api/admin/", {'action': 'set_admin', 'login': $scope.users[index].login, 'isAdmin': $scope.users[index].isAdmin})
+					.success(function(data){
+						if(data!="true") {
+							errorModal($uibModal, function() {
+								location.reload();
+							});
+						}
+					})
+					.error(function(data){
+						errorModal($uibModal, function() {
+							location.reload();
+						});
+					});
+			}, function() {
+				$scope.users[index].isAdmin=!$scope.users[index].isAdmin;
+			});
+		}
+
+	$scope.addUser = function() {
+			var modalInstance = $uibModal.open({
+				templateUrl: 'assets/template/modal/addUser.html',
+				controller: 'addUserModalController',
+			});
+			modalInstance.result.then(function(user) {
+				$scope.users.push(user);
+				$http.post("./api/admin/", {'action': 'add_user', 'login': user.login, 'isAdmin': user.isAdmin})
+				.success(function(data){
+					if(data!="true") {
+						errorModal($uibModal, function() {
+							location.reload();
+						});
+					}
+				})
+				.error(function(data){
+					errorModal($uibModal, function() {
+						location.reload();
+					});
+				});
+			}, null);
+		}
+
+		$scope.delete = function(index) {
+			dangerModal($uibModal, $rootScope.langue.dangerDeleteUser, function() {
+				$http.post("./api/admin/", {'action': 'remove_user', 'login': $scope.users[index].login})
+					.success(function(data){
+						if(data!="true") {
+							errorModal($uibModal, function() {
+								location.reload();
+							});
+						}
+						else
+							$scope.users.splice(index,1);
+					})
+					.error(function(data){
+						errorModal($uibModal, function() {
+							location.reload();
+						});
+					});
+			});
+		}
+
+		$scope.reset = function(index) {
+			dangerModal($uibModal, $rootScope.langue.dangerReset, function() {
+				$http.post("./api/admin/", {'action': 'reset_user', 'login': $scope.users[index].login})
+				.success(function(data){
+					if(data!="true") {
+						errorModal($uibModal, function() {
+							location.reload();
+						});
+					}
+				})
+				.error(function(data){
+					errorModal($uibModal, function() {
+						location.reload();
+					});
+				});
+			});
+		}
+});
+
+app.controller('addUserModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance) {
+	$scope.form = {};
+	$scope.form.state=0;
 });
 
 app.controller('taskController', function($rootScope, $scope, $http, $uibModal) {
@@ -209,7 +316,7 @@ app.controller('editTaskModalController', function($rootScope, $scope, $http, $u
 	$scope.form.state=task.state;
 });
 
-function dangerModal($uibModal, message, callback) {
+function dangerModal($uibModal, message, success, cancel) {
 	var modalInstance = $uibModal.open({
 		templateUrl: 'assets/template/modal/danger.html',
 		controller: 'dangerModalController',
@@ -220,7 +327,7 @@ function dangerModal($uibModal, message, callback) {
 		}
 	});
 
-	modalInstance.result.then(callback, null);
+	modalInstance.result.then(success, cancel);
 }
 
 app.controller('dangerModalController', function($scope, $uibModalInstance, message) {

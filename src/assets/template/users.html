@@ -1,0 +1,47 @@
+<div class="container">
+  <div class="row">
+	<div class="col-md-12">
+      <div class="panel panel-primary">
+      <!-- Default panel contents -->
+        <div class="panel-heading">
+          <div class="user-header">{{langue.userList}}
+            <span class="badge pull-right">{{users.length}}</span>
+          </div>
+        </div>
+        <div class="panel-body" >
+          <div class="user-buttons">
+            <div class="user-title ">
+            <button class="btn btn-success" ng-click="addUser()">{{langue.addUser}} <span class="glyphicon glyphicon-plus"></span></button>
+            </div>
+          </div>
+        </div>
+        <table class="table table-bordered text-center" style="width:100%">
+          <thead>
+            <tr class="user-title">
+              <th class="text-center">#</th>
+              <th class="text-center">{{langue.login}}</th>
+              <th class="text-center">{{langue.admin}}</th>
+              <th class="text-center">{{langue.option}}</th>
+            </thead>
+          </thead>
+          <tbody>
+           <tr class="user-element" ng-repeat="user in users track by $index">
+             <td>{{$index+1}}</td>
+             <td>{{user.login}}</td>
+             <td>
+               <div class="checkbox">
+                 <label>
+                   <input type="checkbox" ng-click="setAdmin($index)" ng-model="user.isAdmin">
+                 </label>
+               </div>
+             </td>
+             <td>
+               <button class="btn btn-info" ng-click="reset($index)"><span class="glyphicon glyphicon-erase"></span></button>
+               <button class="btn btn-danger" ng-click="delete($index)"><span class="glyphicon glyphicon-trash"></span></button>
+             </td>
+           </tr>
+         </tbody>
+       </table>
+    </div>
+  </div>
+</div>
