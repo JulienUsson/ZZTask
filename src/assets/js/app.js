@@ -10,10 +10,17 @@ app.config(function($routeProvider) {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
         })
+<<<<<<< HEAD
 		.when('/users', {
 	 templateUrl : './assets/template/users.html',
 	 controller  : 'adminUsersController'
 			 })
+=======
+		.when('/account/change-password', {
+			templateUrl : './assets/template/change-password.html',
+			controller  : 'changePasswordController'
+		})
+>>>>>>> 25671c3d9861bc1ad6cb94f20890666283ef5aa0
     .otherwise({
 			redirectTo: '/'
 		});
@@ -169,7 +176,7 @@ app.controller('addUserModalController', function($rootScope, $scope, $http, $ui
 
 app.controller('taskController', function($rootScope, $scope, $http, $uibModal) {
 	$scope.tasks=[];
-	$http.post("./api/tasks/", {action: "get_tasks"}).success(function(data){
+	$http.post("./api/tasks/").success(function(data){
 		$scope.tasks=data;
 	})
 	.error(function(data){
@@ -185,11 +192,7 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			$scope.tasks.push(task);
 			$http.post("./api/tasks/", {'action': 'add_task', 'task': task})
 			.success(function(data){
-				if(data!="true") {
-					errorModal($uibModal, function() {
-						location.reload();
-					});
-				}
+				$scope.tasks=data;
 			})
 			.error(function(data){
 				errorModal($uibModal, function() {
@@ -199,29 +202,21 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		}, null);
 	}
 
-	$scope.edit = function(index) {
+	$scope.edit = function(index, state) {
 		var modalInstance = $uibModal.open({
 			templateUrl: 'assets/template/modal/editTask.html',
 			controller: 'editTaskModalController',
 			resolve: {
 				task: function () {
-					return $scope.tasks[index];
+					return $scope.tasks[state][index];
 				}
 			}
 		});
 		modalInstance.result.then(function(task) {
-			$scope.tasks[index].title=task.title;
-			$scope.tasks[index].description=task.description;
-			$scope.tasks[index].user=task.user;
-			$scope.tasks[index].state=task.state;
-			$scope.tasks[index].show=0;
-			$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index})
+			$http.post("./api/tasks/", {'action': 'edit_task', 'task': task, 'id': $scope.tasks[state][index].id})
 			.success(function(data){
-				if(data!="true") {
-					errorModal($uibModal, function() {
-						location.reload();
-					});
-				}
+					$scope.tasks=data;
+					scope.$apply();
 			})
 			.error(function(data){
 				errorModal($uibModal, function() {
@@ -231,16 +226,11 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		}, null);
 	}
 
-	$scope.delete = function(index) {
+	$scope.delete = function(index, state) {
 		dangerModal($uibModal, $rootScope.langue.dangerDelete, function() {
-			$scope.tasks.splice(index, 1);
-			$http.post("./api/tasks/", {'action': 'delete_task', 'index': index})
+			$http.post("./api/tasks/", {'action': 'delete_task', 'id': $scope.tasks[state][index].id})
 			.success(function(data){
-				if(data!="true") {
-					errorModal($uibModal, function() {
-						location.reload();
-					});
-				}
+				$scope.tasks=data;
 			})
 			.error(function(data){
 				errorModal($uibModal, function() {
@@ -250,21 +240,48 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		})
 	}
 
-	$scope.changeState = function(index) {
-		$scope.tasks[index].state++;
-		$scope.tasks[index].show=0;
-		$http.post("./api/tasks/", {'action': 'edit_task', 'task': $scope.tasks[index], 'index': index})
+	$scope.changeState = function(index, state) {
+		var task=$scope.tasks[state][index];
+		task.state++;
+		$http.post("./api/tasks/", {'action': 'edit_task', 'task': task, 'id': task.id})
 		.success(function(data){
-			if(data!="true") {
-				errorModal($uibModal, function() {
-					location.reload();
-				});
-			}
+				$scope.tasks=data;
 		})
 		.error(function(data){
 			errorModal($uibModal, function() {
 				location.reload();
 			});
+		});
+	}
+});
+
+app.controller('changePasswordController', function($rootScope, $scope, $http) {
+	$scope.error={};
+	$scope.form={};
+	$scope.changePassword = function() {
+		if($scope.form.newPassword!=$scope.form.confirmPassword){
+			$scope.error.passwordConfirm=true;
+			$scope.error.password=false;
+			$scope.success=false;
+			return;
+		}
+		$http.post("./api/authentification/", {'action': 'changePassword', 'oldPassword': $scope.form.oldPassword, 'newPassword': $scope.form.newPassword})
+		.success(function(data){
+			if(data=="true") {
+				$scope.success=true;
+				$scope.error.password=false;
+				$scope.error.passwordConfirm=false;
+			}
+			else {
+				$scope.success=false;
+				$scope.error.password=true;
+			}
+			$scope.form.oldPassword="";
+			$scope.form.newPassword="";
+			$scope.form.confirmPassword="";
+		})
+		.error(function(data){
+			errorModal($uibModal, function() {});
 		});
 	}
 });

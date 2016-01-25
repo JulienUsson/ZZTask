@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)) session_start();
 require_once('../../classes/admin.php');
 require_once('../../classes/authentification.php');
 
@@ -23,6 +23,10 @@ switch($params['action']) {
 	case 'isconnected':
 		echo json_encode($auth->is_connected());
 		break;
+		//--------------- CHANGEPASSWORD ------------------
+		case 'changePassword':
+			echo json_encode($auth->change_password($_SESSION['login'], $params['oldPassword'], $params['newPassword']));
+			break;
 }
 
 ?>

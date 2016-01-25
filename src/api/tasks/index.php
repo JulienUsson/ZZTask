@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)) session_start();
 require_once('../../classes/tasks.php');
 require_once('../../classes/authentification.php');
 
@@ -12,22 +12,38 @@ if(!$auth->is_connected())
 
 $params = json_decode(file_get_contents('php://input'),true);
 switch($params['action']) {
-	//--------------- GET_TASKS -------------------------------
-	case 'get_tasks':
-		echo json_encode($tasks->get_tasks());
-		break;
-		//--------------- ADD_TASKS --------------
+	//--------------- ADD_TASKS --------------
 	case 'add_task':
-		echo json_encode($tasks->add_task($params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']));
+		$tasks->add_task($params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']);
 		break;
 	//--------------- EDIT_TASKS --------------
 	case 'edit_task':
-		echo json_encode($tasks->edit_task($params['index'], $params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']));
+		$tasks->edit_task($params['id'], $params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']);
 		break;
 	//--------------- DELETE_TASK -----------------------------
 	case 'delete_task':
-		echo json_encode($tasks->remove_task($params['index']));
+		$tasks->remove_task($params['id']);
 		break;
 }
+
+$tasks=$tasks->get_tasks();
+$todo=array();
+$inprogress=array();
+$done=array();
+foreach ($tasks as $key => $value){
+	$value['id']=$key;
+	switch($value['state']) {
+		case 0:
+			$todo[]=$value;
+			break;
+		case 1:
+			$inprogress[]=$value;
+			break;
+		case 2:
+			$done[]=$value;
+			break;
+	}
+}
+echo json_encode(array('0' => $todo, '1' => $inprogress, "2" => $done));
 
 ?>

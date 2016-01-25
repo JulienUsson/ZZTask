@@ -30,10 +30,26 @@
 		</div>
 		<div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
 		  <ul class="nav navbar-nav navbar-right">
+<<<<<<< HEAD
         <li><a ng-show="admin" href="#/users">{{langue.administration}}</a></li>
         <li><a ng-show="selectedLangue == 'fr'" ng-click="setLangue('en')" href="">Français</a></li>
         <li><a ng-show="selectedLangue == 'en'" ng-click="setLangue('fr')" href="">English</a></li>
 			  <li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
+=======
+        <li><a ng-if="selectedLangue == 'fr'" ng-click="setLangue('en')" href="">Français</a></li>
+        <li><a ng-if="selectedLangue == 'en'" ng-click="setLangue('fr')" href="">English</a></li>
+        <li ng-if="admin" uib-dropdown><a uib-dropdown-toggle>{{langue.administration}} <span class="caret"></span></a>
+          <ul class="uib-dropdown-menu">
+            <li><a href="#/admin/users">{{langue.utilisateurs}}</a></li>
+          </ul>
+        </li>
+        <li uib-dropdown><a uib-dropdown-toggle>{{langue.account}} <span class="caret"></span></a>
+          <ul class="uib-dropdown-menu">
+            <li><a href="#/account/change-password">{{langue.changePassword}}</a></li>
+            <li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
+          </ul>
+        </li>
+>>>>>>> 25671c3d9861bc1ad6cb94f20890666283ef5aa0
 		  </ul>
 		</div>
 	  </div>
