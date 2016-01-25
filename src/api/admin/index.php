@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+if(!isset($_SESSION)) session_start();
 require_once('../../classes/admin.php');
 require_once('../../classes/authentification.php');
 require_once('../../classes/tasks.php');
