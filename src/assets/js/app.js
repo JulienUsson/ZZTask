@@ -10,17 +10,10 @@ app.config(function($routeProvider) {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
         })
-<<<<<<< HEAD
 		.when('/users', {
 	 templateUrl : './assets/template/users.html',
 	 controller  : 'adminUsersController'
 			 })
-=======
-		.when('/account/change-password', {
-			templateUrl : './assets/template/change-password.html',
-			controller  : 'changePasswordController'
-		})
->>>>>>> 25671c3d9861bc1ad6cb94f20890666283ef5aa0
     .otherwise({
 			redirectTo: '/'
 		});

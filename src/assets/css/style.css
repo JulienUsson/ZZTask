@@ -81,7 +81,6 @@ body {
   height: auto;
 }
 
-<<<<<<< HEAD
 .user-buttons {
   padding-left: 5px;
   padding-right: 5px;
@@ -109,8 +108,8 @@ body {
 .user-sentence {
   padding-left: 15px;
   align-content: center;
-=======
+}
+
 .page-header {
     margin-top: 0;
->>>>>>> 25671c3d9861bc1ad6cb94f20890666283ef5aa0
 }
