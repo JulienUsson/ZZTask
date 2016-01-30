@@ -25,7 +25,7 @@ app.config(function($routeProvider) {
 
 app.filter('markdown', function($sce) {
   return function(input) {
-		input=markdown.toHTML(input);
+		input=markdown.toHTML(input, 'Maruku');
     return $sce.trustAsHtml(input);
   }
 });
