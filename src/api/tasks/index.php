@@ -7,18 +7,18 @@ require_once('../../classes/authentification.php');
 $tasks=new Tasks();
 $auth=new Authentification();
 
-if(!$auth->is_connected())
+if(!$auth->is_connected()['loggedIn'])
 	return;
 
 $params = json_decode(file_get_contents('php://input'),true);
 switch($params['action']) {
 	//--------------- ADD_TASKS --------------
 	case 'add_task':
-		$tasks->add_task($params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']);
+		$tasks->add_task($params['task']['title'], strip_tags($params['task']['description']), $params['task']['user'], $params['task']['state']);
 		break;
 	//--------------- EDIT_TASKS --------------
 	case 'edit_task':
-		$tasks->edit_task($params['id'], $params['task']['title'], $params['task']['description'], $params['task']['user'], $params['task']['state']);
+		$tasks->edit_task($params['id'], $params['task']['title'], strip_tags($params['task']['description']), $params['task']['user'], $params['task']['state']);
 		break;
 	//--------------- DELETE_TASK -----------------------------
 	case 'delete_task':

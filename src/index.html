@@ -32,6 +32,7 @@
 		  <ul class="nav navbar-nav navbar-right">
         <li><a ng-if="selectedLangue == 'fr'" ng-click="setLangue('en')" href="">Français</a></li>
         <li><a ng-if="selectedLangue == 'en'" ng-click="setLangue('fr')" href="">English</a></li>
+        <li><a href="#/">{{langue.tasks}}</a></li>
         <li><a ng-if="admin" href="#/users">{{langue.administration}}</a></li>
         <li uib-dropdown><a uib-dropdown-toggle>{{langue.account}} <span class="caret"></span></a>
           <ul class="uib-dropdown-menu">

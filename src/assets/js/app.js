@@ -5,23 +5,26 @@ app.config(function($routeProvider) {
 		.when('/', {
 			templateUrl : './assets/template/task.html',
 			controller  : 'taskController'
-        })
+    })
     .when('/login', {
 			templateUrl : './assets/template/login.html',
 			controller  : 'loginController'
-        })
+	  })
+		.when('/account/change-password', {
+			templateUrl : './assets/template/change-password.html',
+			controller  : 'changePasswordController'
+		})
 		.when('/users', {
-	 templateUrl : './assets/template/users.html',
-	 controller  : 'adminUsersController'
-			 })
-    .otherwise({
+		 templateUrl : './assets/template/users.html',
+		 controller  : 'adminUsersController'
+		})
+		.otherwise({
 			redirectTo: '/'
 		});
 });
 
 app.filter('markdown', function($sce) {
   return function(input) {
-		input=input.replace('#','')
 		input=micromarkdown.parse(input)
     return $sce.trustAsHtml(input);
   }
@@ -209,7 +212,6 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			$http.post("./api/tasks/", {'action': 'edit_task', 'task': task, 'id': $scope.tasks[state][index].id})
 			.success(function(data){
 					$scope.tasks=data;
-					scope.$apply();
 			})
 			.error(function(data){
 				errorModal($uibModal, function() {

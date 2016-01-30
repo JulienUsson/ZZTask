@@ -41,5 +41,6 @@
 	"confirmPassord": "Confirm password",
 	"wrongPassword": "Wrong password.",
 	"updatedPassword": "Updated password.",
-	"wrongConfirmPassword": "Passwords must match."
+	"wrongConfirmPassword": "Passwords must match.",
+	"tasks": "Tasks"
 }

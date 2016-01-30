@@ -9,7 +9,8 @@ $auth=new Authentification();
 $admin=new Admin();
 $params = json_decode(file_get_contents('php://input'),true);
 
-ini_set('display_errors', 1);
+if(!$auth->is_connected()['admin'])
+	return;
 
 switch($params['action']) {
 	//--------------- ADD_USER ------------------
