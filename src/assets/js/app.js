@@ -1,5 +1,8 @@
 var app = angular.module('ZZTask', ['ngRoute', 'ngCookies', 'ngAnimate', 'ui.bootstrap']);
 
+/**
+ * Routes declaration.
+ */
 app.config(function($routeProvider) {
 	$routeProvider
 		.when('/', {
@@ -23,6 +26,9 @@ app.config(function($routeProvider) {
 		});
 });
 
+/**
+ * Markdown converter.
+ */
 app.filter('markdown', function($sce) {
   return function(input) {
 		input=markdown.toHTML(input, 'Maruku');
@@ -30,6 +36,9 @@ app.filter('markdown', function($sce) {
   }
 });
 
+/**
+ * RootScope initialisation.
+ */
 app.run(function($rootScope, $http, $cookies, $location) {
   $rootScope.loggedIn=true;
 	$rootScope.admin=false;
@@ -48,6 +57,10 @@ app.run(function($rootScope, $http, $cookies, $location) {
 		$rootScope.langue=data;
 	});
 
+	/**
+	 * Allow users to change their language.
+	 * @params langue Desired language.
+	 */
 	$rootScope.setLangue = function(langue) {
 		$rootScope.selectedLangue=langue;
 		$cookies.put('langue', $rootScope.selectedLangue);
@@ -57,8 +70,13 @@ app.run(function($rootScope, $http, $cookies, $location) {
 	};
 });
 
+/**
+ * Menu Controller.
+ */
 app.controller('menuController', function($rootScope, $scope, $location, $http) {
-
+	/**
+	 * Allow users to logout.
+	 */
 	$scope.logout = function() {
 		$http.post("./api/authentification/", {action: "logout"}).success(function(data){
 				$rootScope.loggedIn=false;
@@ -68,6 +86,9 @@ app.controller('menuController', function($rootScope, $scope, $location, $http) 
 	}
 });
 
+/**
+ * Controller for the user's administration page.
+ */
 app.controller('adminUsersController', function($rootScope, $scope, $location, $http, $uibModal) {
 	if(!$rootScope.loggedIn || !$rootScope.admin)
 		$location.url('/login');
@@ -77,6 +98,10 @@ app.controller('adminUsersController', function($rootScope, $scope, $location, $
 			$scope.users=data;
 		});
 
+		/**
+		 * Change the user role.
+		 * @params index Index of the user.
+		 */
 		$scope.setAdmin = function(index) {
 			if($scope.users[index].isAdmin == 'true'){
 				var dialog=$rootScope.langue.dangerUnsetAdmin;
@@ -103,6 +128,9 @@ app.controller('adminUsersController', function($rootScope, $scope, $location, $
 			});
 		}
 
+	/**
+	 * Add a user.
+	 */
 	$scope.addUser = function() {
 			var modalInstance = $uibModal.open({
 				templateUrl: 'assets/template/modal/addUser.html',
@@ -125,7 +153,10 @@ app.controller('adminUsersController', function($rootScope, $scope, $location, $
 				});
 			}, null);
 		}
-
+		/**
+		 * Delete a user.
+		 * @params index Index of the user.
+		 */
 		$scope.delete = function(index) {
 			dangerModal($uibModal, $rootScope.langue.dangerDeleteUser, function() {
 				$http.post("./api/admin/", {'action': 'remove_user', 'login': $scope.users[index].login})
@@ -146,6 +177,10 @@ app.controller('adminUsersController', function($rootScope, $scope, $location, $
 			});
 		}
 
+		/**
+		 * Reset the user password.
+		 * @params index Index of the user.
+		 */
 		$scope.reset = function(index) {
 			dangerModal($uibModal, $rootScope.langue.dangerReset, function() {
 				$http.post("./api/admin/", {'action': 'reset_user', 'login': $scope.users[index].login})
@@ -165,11 +200,17 @@ app.controller('adminUsersController', function($rootScope, $scope, $location, $
 		}
 });
 
+/**
+ * Controller for the modal who add a user.
+ */
 app.controller('addUserModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance) {
 	$scope.form = {};
 	$scope.form.state=0;
 });
 
+/**
+ * The controller for the task page.
+ */
 app.controller('taskController', function($rootScope, $scope, $http, $uibModal) {
 	$scope.tasks=[];
 	$scope.users=[];
@@ -185,6 +226,9 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		errorModal($uibModal, function() {});
 	});
 
+	/**
+	 * Add a task.
+	 */
 	$scope.add = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: 'assets/template/modal/addTask.html',
@@ -209,6 +253,10 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		}, null);
 	}
 
+	/**
+	 * Edit a task.
+	 * @params index Index of the task.
+	 */
 	$scope.edit = function(index, state) {
 		var modalInstance = $uibModal.open({
 			templateUrl: 'assets/template/modal/editTask.html',
@@ -235,6 +283,10 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		}, null);
 	}
 
+	/**
+	 * Delete the task.
+	 * @params index Index of the task.
+	 */
 	$scope.delete = function(index, state) {
 		dangerModal($uibModal, $rootScope.langue.dangerDelete, function() {
 			$http.post("./api/tasks/", {'action': 'delete_task', 'id': $scope.tasks[state][index].id})
@@ -249,6 +301,10 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 		})
 	}
 
+	/**
+	 * Change the state of the task.
+	 * @params index Index of the task.
+	 */
 	$scope.changeState = function(index, state) {
 		var task=$scope.tasks[state][index];
 		task.state++;
@@ -264,9 +320,16 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	}
 });
 
+/**
+ * The controller for the change password page.
+ */
 app.controller('changePasswordController', function($rootScope, $scope, $http) {
 	$scope.error={};
 	$scope.form={};
+
+	/**
+	 * Change the password of the user.
+	 */
 	$scope.changePassword = function() {
 		if($scope.form.newPassword!=$scope.form.confirmPassword){
 			$scope.error.passwordConfirm=true;
@@ -295,6 +358,9 @@ app.controller('changePasswordController', function($rootScope, $scope, $http) {
 	}
 });
 
+/**
+ * The controller for the login page.
+ */
 app.controller('loginController', function($rootScope, $scope, $location, $http, $cookies) {
 	$scope.form={};
 	$scope.error={};
@@ -303,6 +369,9 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 	if($scope.rememberMe)
 		$scope.form.login=$cookies.get('login');
 
+		/**
+		 * Login the user.
+		 */
 	$scope.login = function() {
 		$cookies.put('login', $scope.form.login);
 		var params= {action: "login", login: $scope.form.login, password: $scope.form.password};
@@ -318,17 +387,26 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 		});
 	};
 
+	/**
+	 * Watcher for the remember me checkbox.
+	 */
 	$scope.$watch('rememberMe', function() {
 		$cookies.put('rememberMe', $scope.rememberMe);
 	});
 });
 
+/**
+ * The controller for the task add modal.
+ */
 app.controller('addTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance, users) {
 	$scope.form = {};
 	$scope.form.state=0;
 	$scope.users=users;
 });
 
+/**
+ * The controller for the task edit modal.
+ */
 app.controller('editTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance, task, users) {
 	$scope.states=[
 		{id: 0, label: $rootScope.langue.todo},
@@ -343,6 +421,9 @@ app.controller('editTaskModalController', function($rootScope, $scope, $http, $u
 	$scope.form.state=task.state;
 });
 
+/**
+ * Open a modal when a danger occurs.
+ */
 function dangerModal($uibModal, message, success, cancel) {
 	var modalInstance = $uibModal.open({
 		templateUrl: 'assets/template/modal/danger.html',
@@ -357,10 +438,16 @@ function dangerModal($uibModal, message, success, cancel) {
 	modalInstance.result.then(success, cancel);
 }
 
+/**
+ * The controller for the modal who prevent from danger.
+ */
 app.controller('dangerModalController', function($scope, $uibModalInstance, message) {
 	$scope.message = message;
 });
 
+/**
+ * Open a modal when a error occurs.
+ */
 function errorModal($uibModal, callback) {
 	var modalInstance = $uibModal.open({
 		templateUrl: 'assets/template/modal/error.html'
