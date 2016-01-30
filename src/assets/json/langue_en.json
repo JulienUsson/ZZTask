@@ -7,7 +7,6 @@
 	"loginError": "Invalid login and/or password.",
 	"deconnection": "log out",
 	"option": "Options",
-	"defaultPass": "The default password is:",
 	"todo": "Todo",
 	"inProgress": "In progress",
 	"done": "Done",

@@ -5,16 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>ZZTask</title>
-    <link href="./assets/css/bootstrap.min.css" rel="stylesheet">
-    <link href="./assets/css/ng-animate.min.css" rel="stylesheet">
-    <link href="./assets/css/style.css" rel="stylesheet">
-	  <script src="./assets/lib/angular.min.js"></script>
-    <script src="./assets/lib/angular-route.min.js"></script>
-    <script src="./assets/lib/angular-cookies.min.js"></script>
-    <script src="./assets/lib/angular-animate.min.js"></script>
-    <script src="./assets/lib/ui-bootstrap.min.js"></script>
-    <script src="./assets/lib/micromarkdown.min.js"></script>
-    <script src="./assets/js/app.js"></script>
+    <link href="./assets/css/style.min.css" rel="stylesheet">
+    <script src="./assets/js/app.min.js"></script>
   </head>
   <body>
 	<nav ng-show="loggedIn" ng-controller="menuController" class="navbar navbar-default navbar-fixed-top">
@@ -28,14 +20,14 @@
 		  </button>
 		  <a class="navbar-brand" href="#/">ZZTask</a>
 		</div>
-		<div id="navbar" class="collapse navbar-collapse" uib-collapse="isCollapsed">
+		<div class="collapse navbar-collapse" uib-collapse="isCollapsed">
 		  <ul class="nav navbar-nav navbar-right">
         <li><a ng-if="selectedLangue == 'fr'" ng-click="setLangue('en')" href="">Français</a></li>
         <li><a ng-if="selectedLangue == 'en'" ng-click="setLangue('fr')" href="">English</a></li>
         <li><a href="#/">{{langue.tasks}}</a></li>
         <li><a ng-if="admin" href="#/users">{{langue.administration}}</a></li>
         <li uib-dropdown><a uib-dropdown-toggle>{{langue.account}} <span class="caret"></span></a>
-          <ul class="uib-dropdown-menu">
+          <ul uib-dropdown-menu>
             <li><a href="#/account/change-password">{{langue.changePassword}}</a></li>
             <li><a href="" ng-click="logout()">{{langue.deconnection}}</a></li>
           </ul>

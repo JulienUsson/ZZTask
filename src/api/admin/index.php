@@ -16,7 +16,7 @@ switch($params['action']) {
 	//--------------- ADD_USER ------------------
 	case 'add_user':
     echo json_encode($auth->add_user($params['login'],"password"));
-		if($params['isAdmin']=='true')
+		if(isset($params['isAdmin']) && $params['isAdmin']=='true')
 			$admin->add_admin($params['login']);
 		break;
 	//--------------- SET_ADMIN ------------------

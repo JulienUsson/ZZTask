@@ -1,0 +1,24 @@
+{
+  "name": "ZZTask",
+  "version": "1.0.0",
+  "description": "Task manager.",
+  "directories": {
+    "test": "tests"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JulienUsson/ZZTask.git"
+  },
+  "author": "Romain Saulas & Julien Usson",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/JulienUsson/ZZTask/issues"
+  },
+  "homepage": "https://github.com/JulienUsson/ZZTask#readme",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-uglify": "^0.11.0",
+    "grunt-contrib-watch": "^0.6.1"
+  }
+}

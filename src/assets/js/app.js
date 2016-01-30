@@ -25,7 +25,7 @@ app.config(function($routeProvider) {
 
 app.filter('markdown', function($sce) {
   return function(input) {
-		input=micromarkdown.parse(input)
+		input=markdown.toHTML(input);
     return $sce.trustAsHtml(input);
   }
 });
