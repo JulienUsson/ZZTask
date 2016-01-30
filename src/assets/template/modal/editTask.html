@@ -19,9 +19,8 @@
     <div class="form-group">
       <label for="utilisateur" class="col-sm-2 control-label">{{langue.user}}</label>
       <div class="col-sm-10">
-        <select type="text" ng-model="form.user" class="form-control" id="utilisateur" required>
-          <!-- a terminer -->
-          <option>test</option>
+        <select type="text" ng-model="form.user" ng-options="user for user in users track by user" class="form-control" id="utilisateur" required>
+          <option></option>
         </select>
       </div>
     </div>

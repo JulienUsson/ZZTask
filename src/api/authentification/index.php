@@ -16,6 +16,8 @@ switch($params['action']) {
 		break;
 	//--------------- LOGOUT ------------------
 	case 'logout':
+		if(!$auth->is_connected()['loggedIn'])
+			return;
 		$auth->deconnect();
 		echo "true";
 		break;
@@ -25,7 +27,17 @@ switch($params['action']) {
 		break;
 		//--------------- CHANGEPASSWORD ------------------
 		case 'changePassword':
+			if(!$auth->is_connected()['loggedIn'])
+				return;
 			echo json_encode($auth->change_password($_SESSION['login'], $params['oldPassword'], $params['newPassword']));
+			break;
+		case 'get_users':
+			if(!$auth->is_connected()['loggedIn'])
+				return;
+			foreach ($auth->get_users() as $login => $pass){
+				$users[] = $login;
+			}
+			echo json_encode($users);
 			break;
 }
 

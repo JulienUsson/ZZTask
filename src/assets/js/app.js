@@ -172,6 +172,12 @@ app.controller('addUserModalController', function($rootScope, $scope, $http, $ui
 
 app.controller('taskController', function($rootScope, $scope, $http, $uibModal) {
 	$scope.tasks=[];
+	$scope.users=[];
+
+	$http.post("./api/authentification/", {'action': 'get_users'}).success(function(data){
+		$scope.users=data;
+	})
+
 	$http.post("./api/tasks/").success(function(data){
 		$scope.tasks=data;
 	})
@@ -182,7 +188,12 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 	$scope.add = function() {
 		var modalInstance = $uibModal.open({
 			templateUrl: 'assets/template/modal/addTask.html',
-			controller: 'addTaskModalController'
+			controller: 'addTaskModalController',
+			resolve: {
+				users: function () {
+					return $scope.users;
+				}
+			}
 		});
 		modalInstance.result.then(function(task) {
 			$scope.tasks.push(task);
@@ -205,6 +216,9 @@ app.controller('taskController', function($rootScope, $scope, $http, $uibModal) 
 			resolve: {
 				task: function () {
 					return $scope.tasks[state][index];
+				},
+				users: function () {
+					return $scope.users;
 				}
 			}
 		});
@@ -309,18 +323,19 @@ app.controller('loginController', function($rootScope, $scope, $location, $http,
 	});
 });
 
-app.controller('addTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance) {
+app.controller('addTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance, users) {
 	$scope.form = {};
 	$scope.form.state=0;
+	$scope.users=users;
 });
 
-app.controller('editTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance, task) {
+app.controller('editTaskModalController', function($rootScope, $scope, $http, $uibModal, $uibModalInstance, task, users) {
 	$scope.states=[
 		{id: 0, label: $rootScope.langue.todo},
 		{id: 1, label: $rootScope.langue.inProgress},
 		{id: 2, label: $rootScope.langue.done}
 	];
-
+	$scope.users=users;
 	$scope.form = {};
 	$scope.form.title=task.title;
 	$scope.form.description=task.description;
