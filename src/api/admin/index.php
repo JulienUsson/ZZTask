@@ -7,9 +7,10 @@ require_once('../../classes/tasks.php');
 
 $auth=new Authentification();
 $admin=new Admin();
+$id_connected=$auth->is_connected();
 $params = json_decode(file_get_contents('php://input'),true);
 
-if(!$auth->is_connected()['admin'])
+if(!$id_connected['admin'])
 	return;
 
 switch($params['action']) {

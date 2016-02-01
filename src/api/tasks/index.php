@@ -6,8 +6,8 @@ require_once('../../classes/authentification.php');
 
 $tasks=new Tasks();
 $auth=new Authentification();
-
-if(!$auth->is_connected()['loggedIn'])
+$id_connected=$auth->is_connected();
+if(!$id_connected['loggedIn'])
 	return;
 
 $params = json_decode(file_get_contents('php://input'),true);

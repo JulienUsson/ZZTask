@@ -5,6 +5,7 @@ require_once('../../classes/admin.php');
 require_once('../../classes/authentification.php');
 
 $auth=new Authentification();
+$id_connected=$auth->is_connected();
 $params = json_decode(file_get_contents('php://input'),true);
 
 switch($params['action']) {
@@ -16,7 +17,7 @@ switch($params['action']) {
 		break;
 	//--------------- LOGOUT ------------------
 	case 'logout':
-		if(!$auth->is_connected()['loggedIn'])
+		if(!$id_connected['loggedIn'])
 			return;
 		$auth->deconnect();
 		echo "true";
@@ -26,19 +27,19 @@ switch($params['action']) {
 		echo json_encode($auth->is_connected());
 		break;
 		//--------------- CHANGEPASSWORD ------------------
-		case 'changePassword':
-			if(!$auth->is_connected()['loggedIn'])
-				return;
-			echo json_encode($auth->change_password($_SESSION['login'], $params['oldPassword'], $params['newPassword']));
-			break;
-		case 'get_users':
-			if(!$auth->is_connected()['loggedIn'])
-				return;
-			foreach ($auth->get_users() as $login => $pass){
-				$users[] = $login;
-			}
-			echo json_encode($users);
-			break;
+	case 'changePassword':
+		if(!$id_connected['loggedIn'])
+			return;
+		echo json_encode($auth->change_password($_SESSION['login'], $params['oldPassword'], $params['newPassword']));
+		break;
+	case 'get_users':
+		if(!$id_connected['loggedIn'])
+			return;
+		foreach ($auth->get_users() as $login => $pass){
+			$users[] = $login;
+		}
+		echo json_encode($users);
+		break;
 }
 
 ?>
